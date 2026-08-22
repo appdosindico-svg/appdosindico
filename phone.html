@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>App do Síndico - Contato</title>
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" href="images/icone_circular.png">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        /* Reset básico para garantir consistência */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); /* Fundo elegante */
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #333;
+        }
+
+        /* O Cartão Principal */
+        .vcard-body {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 400px; /* Limite de largura para parecer um app */
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            text-align: center;
+            padding-bottom: 20px;
+            position: relative;
+        }
+
+        /* Área do Topo e Logo */
+        .vcard-header {
+            background-color: #0d1b2a; /* Cor da marca */
+            height: 100px;
+            margin-bottom: 60px; /* Espaço para a logo sobrepor */
+        }
+
+        .vcard-logo-wrap {
+            margin-top: -75px; /* Puxa a logo para cima */
+        }
+
+        .brand-logo {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 5px solid #fff;
+            background-color: #fff;
+            object-fit: contain;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: inline-block;
+        }
+
+        /* Textos */
+        .vcard-profile-description {
+            padding: 0 20px;
+        }
+
+        .profile-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #0d1b2a;
+        }
+
+        .profile-subtitle {
+            font-size: 0.85rem;
+            color: #c8960c;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #eee;
+            margin: 20px auto;
+            width: 80%;
+        }
+
+        /* Botões de Contato */
+        .contact-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn-contact {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .btn-contact:active {
+            transform: scale(0.98);
+        }
+
+        .btn-email {
+            background-color: #ecf0f1;
+            color: #0d1b2a;
+        }
+
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-contact i {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+
+        /* Rodapé com Ícones Sociais (ainda sem links ativos) */
+        .vcard-footer {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .footer-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f1f2f6;
+            color: #0d1b2a;
+            border-radius: 50%;
+            cursor: default;
+        }
+
+    </style>
+</head>
+<body>
+
+    <section class="vcard-body">
+
+        <div class="vcard-header"></div>
+
+        <div class="vcard-logo-wrap">
+            <img src="images/icone_circular.png" class="brand-logo" alt="App do Síndico">
+        </div>
+
+        <div class="vcard-profile-description">
+            <h1 class="profile-title">App do Síndico</h1>
+            <h2 class="profile-subtitle">Ferramentas para o Síndico na palma da mão</h2>
+
+            <hr />
+
+            <div class="contact-buttons">
+                <a href="mailto:appdosindico@gmail.com" class="btn-contact btn-email">
+                    <i class="fas fa-envelope"></i> Enviar E-mail
+                </a>
+
+                <a href="https://wa.me/5571992071319" target="_blank" rel="noopener noreferrer" class="btn-contact btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> Chamar no WhatsApp
+                </a>
+            </div>
+        </div>
+
+        <div class="vcard-footer">
+            <span class="footer-icon"><i class="fab fa-instagram"></i></span>
+            <span class="footer-icon"><i class="fab fa-facebook-f"></i></span>
+            <span class="footer-icon"><i class="fab fa-linkedin-in"></i></span>
+            <span class="footer-icon"><i class="fab fa-youtube"></i></span>
+        </div>
+
+    </section>
+
+</body>
+</html>

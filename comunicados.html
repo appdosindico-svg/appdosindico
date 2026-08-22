@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1e3a8a">
+<title>Gerador de Comunicados — App do Síndico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Dancing+Script:wght@600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" href="images/icone_circular.png">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+  :root {
+    --primary: #1e3a8a; --primary-dark: #142755; --primary-light: #3b5cb5;
+    --primary-soft: #eef2ff; --accent: #c9a37a; --accent-light: #f7eedf;
+    --bg: #f1f5f9; --surface: #ffffff; --text: #1e293b; --text-muted: #64748b;
+    --border: #e2e8f0; --success: #10b981; --danger: #ef4444;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { font-family: 'Inter', system-ui, -apple-system, sans-serif; color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; }
+
+  .app-shell { min-height: 100vh; display: flex; flex-direction: column; }
+  .app-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white; padding: 18px 20px 22px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08); position: relative; overflow: hidden;
+  }
+  .app-header::after {
+    content: ''; position: absolute; right: -60px; top: -60px; width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(201,163,122,0.18) 0%, transparent 70%); pointer-events: none;
+  }
+  .app-header-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; gap: 14px; position: relative; z-index: 1; }
+  .app-logo-icon { width: 46px; height: 46px; background: rgba(255,255,255,0.14); border-radius: 12px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.18); }
+  .app-logo-icon svg { width: 26px; height: 26px; color: white; }
+  .app-title-block h1 { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; }
+  .app-title-block .subtitle { font-size: 0.78rem; opacity: 0.82; margin-top: 2px; }
+
+  .app-main {
+    flex: 1; max-width: 1400px; width: 100%; margin: 0 auto;
+    padding: 20px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px;
+  }
+  @media (max-width: 1100px) { .app-main { grid-template-columns: 1fr; gap: 16px; padding: 16px; } }
+
+  /* FORM */
+  .form-panel { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+  .card { background: var(--surface); border-radius: 14px; padding: 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06); border: 1px solid var(--border); }
+  .card-title { display: flex; align-items: center; gap: 10px; font-size: 0.95rem; font-weight: 600; color: var(--primary); margin-bottom: 14px; }
+  .card-num { width: 26px; height: 26px; background: var(--primary); color: white; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: 700; flex-shrink: 0; }
+
+  .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+  .field:last-child { margin-bottom: 0; }
+  .field label { font-size: 0.78rem; font-weight: 500; color: var(--text); }
+  .field-hint { font-size: 0.72rem; color: var(--text-muted); }
+
+  .input, .textarea, .select {
+    width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 9px;
+    font-size: 0.9rem; font-family: inherit; color: var(--text); background: white;
+    transition: border-color 0.15s, box-shadow 0.15s; -webkit-appearance: none;
+  }
+  .input:focus, .textarea:focus, .select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(30,58,138,0.1); }
+  .textarea { resize: vertical; min-height: 70px; line-height: 1.5; font-family: inherit; }
+  .select { cursor: pointer; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+
+  /* Font formatting controls */
+  .fmt-row { display: flex; gap: 8px; align-items: flex-end; }
+  .fmt-col { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+  .fmt-col label { font-size: 0.78rem; font-weight: 500; color: var(--text); }
+  .color-input { width: 100%; height: 40px; padding: 3px 6px; border: 1.5px solid var(--border); border-radius: 9px; cursor: pointer; background: white; -webkit-appearance: none; }
+  .color-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(30,58,138,0.1); }
+
+  .toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; background: var(--bg); padding: 4px; border-radius: 10px; margin-bottom: 14px; }
+  .toggle button { padding: 9px 12px; border: none; background: transparent; cursor: pointer; border-radius: 7px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); transition: all 0.15s; font-family: inherit; }
+  .toggle button.active { background: white; color: var(--primary); box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+
+  .rules-counter { display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem; margin-bottom: 10px; padding: 8px 12px; background: var(--primary-soft); border-radius: 8px; color: var(--primary); }
+  .rules-counter strong { font-weight: 700; }
+  .rules-counter.full { background: #fef3c7; color: #92400e; }
+
+  .rules-list { display: flex; flex-direction: column; gap: 6px; max-height: 360px; overflow-y: auto; padding-right: 4px; }
+  .rules-list::-webkit-scrollbar { width: 6px; }
+  .rules-list::-webkit-scrollbar-track { background: transparent; }
+  .rules-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  .rule-item { display: flex; align-items: flex-start; gap: 11px; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 9px; cursor: pointer; transition: all 0.15s; background: white; }
+  .rule-item:hover { border-color: var(--primary-light); background: #f8faff; }
+  .rule-item.selected { border-color: var(--primary); background: var(--primary-soft); }
+  .rule-item.disabled { opacity: 0.45; cursor: not-allowed; }
+  .rule-item.disabled:hover { border-color: var(--border); background: white; }
+
+  .rule-checkbox { width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 5px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; margin-top: 1px; }
+  .rule-item.selected .rule-checkbox { background: var(--primary); border-color: var(--primary); }
+  .rule-checkbox svg { width: 12px; height: 12px; color: white; opacity: 0; transition: opacity 0.15s; }
+  .rule-item.selected .rule-checkbox svg { opacity: 1; }
+  .rule-content { flex: 1; min-width: 0; }
+  .rule-title { font-weight: 600; font-size: 0.83rem; color: var(--text); margin-bottom: 2px; line-height: 1.25; }
+  .rule-desc { font-size: 0.74rem; color: var(--text-muted); line-height: 1.4; }
+
+  .actions { display: grid; grid-template-columns: auto 1fr; gap: 10px; }
+  .btn { padding: 13px 18px; border: none; border-radius: 11px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: inherit; }
+  .btn svg { width: 18px; height: 18px; }
+  .btn-primary { background: var(--primary); color: white; box-shadow: 0 2px 8px rgba(30,58,138,0.25); }
+  .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(30,58,138,0.32); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-secondary { background: white; color: var(--text); border: 1.5px solid var(--border); }
+  .btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
+
+  .btn-link { background: transparent; border: none; color: var(--primary); font-size: 0.78rem; font-weight: 600; cursor: pointer; padding: 6px 10px; display: inline-flex; align-items: center; gap: 4px; font-family: inherit; border-radius: 6px; }
+  .btn-link:hover { background: var(--primary-soft); }
+  .btn-link svg { width: 14px; height: 14px; }
+  .upload-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+
+  i[data-lucide] { display: inline-block; width: 1em; height: 1em; }
+
+  /* PREVIEW */
+  .preview-panel { min-width: 0; }
+  .preview-panel-inner { position: sticky; top: 16px; }
+  .preview-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; padding: 0 4px; }
+  .preview-label { display: flex; align-items: center; gap: 6px; color: var(--text-muted); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+  .preview-label svg { width: 14px; height: 14px; }
+  .scale-info { font-size: 0.7rem; color: var(--text-muted); }
+  .scale-info strong { color: var(--success); }
+
+  .preview-frame {
+    background: linear-gradient(135deg, #cbd5e1 0%, #94a3b8 100%);
+    padding: 18px; border-radius: 14px;
+    overflow: hidden;
+    height: calc(100vh - 130px);
+    min-height: 450px;
+    display: flex; align-items: flex-start; justify-content: center;
+  }
+
+  .a4-wrapper { display: flex; justify-content: flex-start; align-items: flex-start; }
+
+  /* Altura 287mm (e não 297mm) para que a pré-visualização seja idêntica
+     à folha realmente impressa — ver bloco @media print. */
+  .a4 {
+    background: white; width: 210mm; height: 287mm; flex-shrink: 0;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.18); position: relative; overflow: hidden;
+    transform-origin: top left;
+  }
+  .a4-inner { height: 100%; padding: 11mm 14mm 11mm; display: flex; flex-direction: column; position: relative; z-index: 2; }
+
+  .a4-deco { position: absolute; pointer-events: none; z-index: 1; }
+  .a4-deco-tl { top: 6mm; left: 6mm; width: 24mm; height: 24mm; border-top: 2.2px solid var(--primary); border-left: 2.2px solid var(--primary); border-top-left-radius: 3mm; }
+  .a4-deco-tr { top: 6mm; right: 6mm; width: 14mm; height: 14mm; border-top: 2.2px solid var(--accent); border-right: 2.2px solid var(--accent); border-top-right-radius: 3mm; }
+  .a4-deco-bl { bottom: 6mm; left: 6mm; width: 14mm; height: 14mm; border-bottom: 2.2px solid var(--accent); border-left: 2.2px solid var(--accent); border-bottom-left-radius: 3mm; }
+  .a4-deco-br { bottom: 6mm; right: 6mm; width: 24mm; height: 24mm; border-bottom: 2.2px solid var(--primary); border-right: 2.2px solid var(--primary); border-bottom-right-radius: 3mm; }
+
+  /* CABEÇALHO ALTERADO E CORRIGIDO */
+  .com-header { 
+    display: flex; flex-direction: column; 
+    padding-bottom: 4mm; border-bottom: 1.5px solid var(--primary); 
+    margin-bottom: 4mm; flex-shrink: 0;
+  }
+  
+  .com-tag { 
+    align-self: center; 
+    background: var(--primary); 
+    color: white; 
+    font-size: 24pt; 
+    font-weight: 900; 
+    letter-spacing: 0.18em; 
+    padding: 6px 35px; 
+    border-radius: 4px; 
+    margin-bottom: 5mm; 
+    display: inline-block;
+    text-transform: uppercase;
+  }
+  
+  .com-cond { 
+    align-self: center; font-size: 24pt; font-weight: 900; 
+    color: var(--primary); line-height: 1.1; text-align: center; 
+  }
+  
+  .com-date { 
+    align-self: flex-end; font-size: 8pt; color: var(--text-muted); 
+    font-style: italic; margin-bottom: 2mm; 
+  }
+
+  .com-title-wrap { text-align: center; margin: 6mm 0 5mm; flex-shrink: 0; }
+  .com-title-icon { display: inline-flex; align-items: center; justify-content: center; width: 16mm; height: 16mm; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); border-radius: 50%; margin-bottom: 3mm; box-shadow: 0 3px 12px rgba(30,58,138,0.25); }
+  .com-title-icon svg { width: 9mm; height: 9mm; color: white; stroke-width: 2; }
+  .com-title { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 22pt; color: var(--primary); line-height: 1.1; margin-bottom: 2mm; letter-spacing: -0.01em; word-wrap: break-word; padding: 0 4mm; }
+  .com-subtitle { font-size: 9.5pt; color: var(--text-muted); font-style: italic; max-width: 90%; margin: 0 auto; line-height: 1.4; }
+
+  .com-body { flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; }
+  /* --fit: fator de redução aplicado pelo autoFit(). É propagado por herança e
+     multiplica fontes/espaçamentos — NÃO usar transform aqui: o Chrome do Android
+     perde o texto de camadas transformadas ao gerar o PDF. */
+  .com-body-content { width: 100%; --fit: 1; }
+
+  .com-greeting { font-size: calc(10pt * var(--fit)); margin-bottom: calc(3mm * var(--fit)); color: var(--text); }
+  .com-text { font-size: calc(9.5pt * var(--fit)); line-height: 1.55; color: var(--text); white-space: pre-wrap; margin-bottom: calc(3mm * var(--fit)); }
+
+  .com-image-float {
+    float: right;
+    width: calc(60mm * var(--fit));
+    height: calc(60mm * var(--fit));
+    margin: 0 0 calc(3mm * var(--fit)) calc(4mm * var(--fit));
+    object-fit: cover;
+    border: 1.2px solid var(--primary);
+    border-radius: 1.5mm;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .img-toggle-label { display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 500; color: var(--text); cursor: pointer; }
+  .img-toggle-label input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--primary); cursor: pointer; }
+  #img-upload-wrap { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+  #input-img { padding: 8px 10px; font-size: 0.85rem; cursor: pointer; }
+
+  .com-rules { display: grid; gap: calc(3mm * var(--fit)); }
+  .com-rules.cols-1 { grid-template-columns: 1fr; }
+  .com-rules.cols-2 { grid-template-columns: 1fr 1fr; }
+  .com-rule-span-2 { grid-column: span 2; }
+
+  .com-rule { display: flex; gap: calc(3mm * var(--fit)); padding: calc(2.5mm * var(--fit)) calc(3mm * var(--fit)); background: linear-gradient(135deg, #f8faff 0%, #ffffff 100%); border-left: 2.5px solid var(--primary); border-radius: 1.5mm; page-break-inside: avoid; break-inside: avoid; }
+  .com-rule-icon { flex-shrink: 0; width: calc(12mm * var(--fit)); height: calc(11mm * var(--fit)); background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .com-rule-icon svg { width: calc(6.5mm * var(--fit)); height: calc(6.5mm * var(--fit)); stroke-width: 2; }
+  .com-rule-content { flex: 1; min-width: 0; }
+  .com-rule-title { font-size: calc(13pt * var(--fit)); font-weight: 800; color: var(--primary); margin-bottom: calc(2mm * var(--fit)); line-height: 1.2; }
+  .com-rule-desc { font-size: calc(10pt * var(--fit)); color: var(--text); line-height: 1.4; }
+
+  .com-custom { margin-top: calc(3mm * var(--fit)); padding: calc(3mm * var(--fit)) calc(4mm * var(--fit)); background: var(--accent-light); border-radius: 1.5mm; border-left: 2.5px solid var(--accent); font-size: calc(9pt * var(--fit)); line-height: 1.5; color: var(--text); }
+  .com-custom-label { font-size: calc(7pt * var(--fit)); font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1mm; }
+
+  .com-signature { text-align: center; margin: 5mm 0 3mm; flex-shrink: 0; }
+  .com-signature-line { width: 55mm; height: 0.4px; background: #94a3b8; margin: 0 auto 1mm; }
+  .com-signature-name { font-family: 'Dancing Script', cursive; font-weight: 700; font-size: 24pt; color: var(--primary); line-height: 1; }
+  .com-signature-title { font-size: 8pt; color: var(--text-muted); margin-top: 1mm; letter-spacing: 0.04em; font-weight: 500; }
+
+  .com-footer { flex-shrink: 0; } /* rodapé sem conteúdo: mantido apenas como container do layout */
+
+  @media (max-width: 1100px) {
+    .preview-panel-inner { position: static; }
+    .preview-frame { height: 70vh; min-height: 350px; }
+  }
+  @media (max-width: 700px) {
+    .preview-frame { height: 80vw; min-height: 300px; }
+  }
+
+  /* =======================================================
+     A SOLUÇÃO DEFINITIVA DE IMPRESSÃO
+     Em vez de esconder os elementos, usamos 'display: none'
+     na interface para sobrar APENAS o preview na tela.
+     Isso elimina completamente bugs de navegadores renderizando a UI.
+     ======================================================= */
+  @media print {
+    @page { 
+      size: A4; 
+      margin: 0; 
+    }
+    
+    /* Remove tudo que não for o preview do documento impresso */
+    .app-header, 
+    .form-panel, 
+    .preview-header, 
+    .toast { 
+      display: none !important; 
+    }
+    
+    /* Reseta os fundos e margens globais */
+    html, body {
+      background: white !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    
+    /* Garante que os containers pai deixem a folha fluir naturalmente */
+    .app-shell, .app-main, .preview-panel {
+      display: block !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      height: auto !important;
+      min-height: auto !important;
+    }
+    
+    /* Tira a formatação cinza de pré-visualização */
+    .preview-frame {
+      background: none !important;
+      padding: 0 !important;
+      overflow: visible !important;
+      height: auto !important;
+      min-height: 0 !important;
+      display: block !important;
+    }
+    
+    /* Configura o papel A4 físico + Zona de respiro da URL */
+    .a4-wrapper {
+      display: block !important;
+    }
+    .a4 {
+      position: relative !important;
+      left: 0 !important;
+      top: 0 !important;
+      transform: none !important; /* Ignora o zoom dinâmico do javascript */
+      box-shadow: none !important;
+      margin: 0 !important;
+      width: 210mm !important;
+      height: 287mm !important; /* Mantém 10mm livres para a URL não quebrar página */
+      max-width: 210mm !important;
+      max-height: 287mm !important;
+      page-break-after: avoid;
+      page-break-inside: avoid;
+    }
+    
+    .a4-inner {
+      padding: 11mm 14mm 11mm; /* Margem inferior reduzida para aproximar rodapé das bordas decorativas */
+      height: 287mm !important;
+    }
+    
+    /* O corpo é reduzido pela variável --fit (layout real, via autoFit()).
+       Nenhum transform aqui: o Chrome do Android descarta o texto de camadas
+       transformadas ao exportar o PDF. */
+    .com-body-content {
+      transform: none !important;
+    }
+
+    /* Força fundos azuis e qualidade máxima */
+    .com-rule { background: linear-gradient(135deg, #f8faff 0%, #ffffff 100%) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .com-tag, .com-rule-icon, .com-title-icon { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <header class="app-header">
+    <div class="app-header-inner">
+      <div class="app-logo-icon"><i data-lucide="file-text"></i></div>
+      <div class="app-title-block">
+        <h1>Gerador de Comunicados</h1>
+        <div class="subtitle">App do Síndico · Pronto para impressão - A4</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <section class="form-panel">
+      <!-- Card 1 -->
+      <div class="card">
+        <div class="card-title"><span class="card-num">1</span> Condomínio</div>
+        <div class="field">
+          <label for="select-cond">Selecione o condomínio</label>
+          <select id="select-cond" class="select"></select>
+        </div>
+        <div class="upload-row">
+          <button type="button" class="btn-link" id="btn-add-cond">
+            <i data-lucide="plus"></i> Adicionar manualmente
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card">
+        <div class="card-title"><span class="card-num">2</span> Tipo de Comunicado</div>
+        <div class="toggle">
+          <button type="button" data-tipo="tema">Por Tema Específico</button>
+          <button type="button" data-tipo="geral" class="active">Comunicado Geral</button>
+        </div>
+
+        <div id="form-geral">
+          <div class="field">
+            <label for="input-titulo">Título do comunicado</label>
+            <input type="text" id="input-titulo" class="input" maxlength="80" placeholder="Ex: Aviso Importante aos Moradores">
+          </div>
+          <div class="field">
+            <label for="input-corpo">Corpo do texto</label>
+            <textarea id="input-corpo" class="textarea" rows="5" maxlength="2000" placeholder="Escreva aqui a mensagem do comunicado…"></textarea>
+            <div class="field-hint"><span id="corpo-count">0</span> / 2000 caracteres</div>
+          </div>
+          <div class="field">
+            <label>Formatação do texto</label>
+            <div class="fmt-row">
+              <div class="fmt-col">
+                <label for="input-fontsize">Tamanho</label>
+                <select id="input-fontsize" class="select">
+                  <option value="8">Pequeno (8pt)</option>
+                  <option value="10" selected>Normal (10pt)</option>
+                  <option value="16">Grande (16pt)</option>
+                  <option value="20">Muito grande (20pt)</option>
+                </select>
+              </div>
+              <div class="fmt-col">
+                <label for="input-color">Cor do texto</label>
+                <input type="color" id="input-color" value="#1e293b" class="color-input">
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="img-toggle-label">
+              <input type="checkbox" id="chk-incluir-imagem"> Incluir imagem
+            </label>
+            <div id="img-upload-wrap" style="display:none;">
+              <input type="file" id="input-img" accept="image/*" class="input">
+              <div class="upload-row">
+                <button type="button" class="btn-link" id="btn-remove-img" style="display:none;">
+                  <i data-lucide="x"></i> Remover imagem
+                </button>
+              </div>
+              <div class="field-hint">A imagem aparecerá no canto direito do comunicado, com o texto contornando-a.</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="form-tema" style="display:none;">
+          <div class="field">
+            <label for="select-tema">Tema do comunicado</label>
+            <select id="select-tema" class="select"></select>
+          </div>
+          <div class="rules-counter" id="rules-counter">
+            <span>Selecione até <strong>6</strong> regras</span>
+            <span><strong id="counter-num">0</strong> / 6</span>
+          </div>
+          <div class="rules-list" id="rules-list"></div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card">
+        <div class="card-title"><span class="card-num">3</span> Mensagem Adicional <span style="font-weight:400;color:var(--text-muted);font-size:0.78rem;">(opcional)</span></div>
+        <div class="field">
+          <textarea id="input-extra" class="textarea" rows="3" maxlength="280" placeholder="Texto opcional de complemento. Ex: Em caso de dúvidas, procure a administração."></textarea>
+          <div class="field-hint"><span id="extra-count">0</span> / 280 caracteres</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn btn-secondary" id="btn-clear"><i data-lucide="rotate-ccw"></i> Limpar</button>
+        <button type="button" class="btn btn-primary" id="btn-print"><i data-lucide="printer"></i> Imprimir / Salvar PDF</button>
+      </div>
+    </section>
+
+    <!-- PREVIEW -->
+    <section class="preview-panel">
+      <div class="preview-panel-inner">
+        <div class="preview-header">
+          <div class="preview-label"><i data-lucide="eye"></i> Pré-visualização</div>
+          <div class="scale-info" id="scale-info">A4 · Auto-ajuste</div>
+        </div>
+        <div class="preview-frame">
+          <div class="a4-wrapper">
+            <div class="a4" id="a4">
+              <div class="a4-deco a4-deco-tl"></div>
+              <div class="a4-deco a4-deco-tr"></div>
+              <div class="a4-deco a4-deco-bl"></div>
+              <div class="a4-deco a4-deco-br"></div>
+              <div class="a4-inner" id="a4-inner">
+                
+                <div class="com-header">
+                  <div class="com-date" id="cm-date">—</div>
+                  <div class="com-tag">INFORMATIVO</div>
+                  <div class="com-cond" id="cm-cond">Selecione um condomínio</div>
+                </div>
+
+                <div class="com-title-wrap">
+                  <div class="com-title-icon" id="cm-icon"><i data-lucide="megaphone"></i></div>
+                  <h1 class="com-title" id="cm-title">Comunicado aos Moradores</h1>
+                  <div class="com-subtitle" id="cm-subtitle">Informativo exclusivo para moradores</div>
+                </div>
+                <div class="com-body" id="com-body">
+                  <div class="com-body-content" id="com-body-content">
+                    <div class="com-greeting" id="cm-greeting">Prezados moradores,</div>
+                    <div id="cm-dynamic"></div>
+                  </div>
+                </div>
+                <div class="com-signature">
+                  <div class="com-signature-name">A síndica</div>
+                </div>
+
+                <!-- Rodapé sem dados de empresa: container mantido apenas para preservar o layout -->
+                <div class="com-footer"></div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast"><i data-lucide="check-circle"></i><span id="toast-text">OK</span></div>
+
+<script>
+/* =========================================================
+   DATA
+   ========================================================= */
+const DEFAULT_CONDOMINIOS = [
+  'Condomínio Bertolucci','Condomínio Canela Residencial','Condomínio Del Sol',
+  'Cond. Fernando Novis','Condomínio Ícone','Condomínio Jardim Oceania',
+  'Condomínio M. Rio São Pedro','Condomínio M. San Vincent','Condomínio Maison Graça',
+  'Ed. Carolina Cavalcante','Ed. Daniel','Ed. Eng. Renato Firpo','Ed. Marechal Andrea',
+  'Ed. Palazzo Oceânico','Ed. Patricia','Ed. Primum','Ed. Residencial Salvador',
+  'Ed. Solar da Colina','Ed. Solaris','Ed. Spazio Cidade','Ed. Spazio Pituba',
+  'Residencial São Lázaro','Ed. Menina Bonita','Ed. Vog Alto Do Imbuí'
+];
+
+const TEMAS = {
+  silencio: {
+    label: 'Regras de Silêncio e Barulho', icon: 'volume-x',
+    title: 'Silêncio e Boa Vizinhança', subtitle: 'Para o conforto e descanso de todos os moradores',
+    rules: [
+      { icon: 'moon', t: 'Horário de Silêncio', d: 'Mantenha silêncio entre 22h e 8h. É hora de respeitar o descanso dos vizinhos.' },
+      { icon: 'volume-2', t: 'Volume da Música', d: 'Mantenha o som em volume moderado. Use fones de ouvido sempre que possível.' },
+      { icon: 'party-popper', t: 'Festas em Apartamento', d: 'Avise os vizinhos com antecedência. Encerre o som até as 22h.' },
+      { icon: 'baby', t: 'Crianças nos Corredores', d: 'Evite correr e gritar nos corredores e elevadores. Brinquedos com rodas têm horário restrito.' },
+      { icon: 'music', t: 'Instrumentos Musicais', d: 'Respeite os horários permitidos pelo regimento. Use abafadores ou pratique em fones quando viável.' },
+      { icon: 'hammer', t: 'Aparelhos Domésticos', d: 'Evite aspirador, furadeira e máquinas barulhentas fora do horário comercial e após as 22h.' },
+      { icon: 'wrench', t: 'Pequenos Reparos', d: 'Faça em horário comercial. Para reformas, consulte regimento específico.' },
+      { icon: 'users', t: 'Conversas em Áreas Comuns', d: 'Mantenha tom moderado em corredores, garagem e portaria, especialmente à noite.' }
+    ]
+  },
+  manutencao: {
+    label: 'Avisos de Manutenção', icon: 'wrench',
+    title: 'Aviso de Manutenção', subtitle: 'Informações importantes sobre os serviços programados',
+    rules: [
+      { icon: 'droplet', t: 'Limpeza da Caixa d\'Água', d: 'Programada para a data informada. Encha recipientes com antecedência. Sem água por algumas horas.' },
+      { icon: 'arrow-up-down', t: 'Manutenção do Elevador', d: 'Um dos elevadores ficará em manutenção. Use o elevador alternativo durante o período.' },
+      { icon: 'bug', t: 'Dedetização', d: 'Mantenha alimentos vedados. Recomenda-se ausentar-se do apartamento durante o procedimento.' },
+      { icon: 'flame', t: 'Revisão de Extintores', d: 'Verificação periódica obrigatória. Brigadistas percorrerão os andares conforme cronograma.' },
+      { icon: 'sparkles', t: 'Limpeza de Fachada', d: 'Trabalho em altura agendado. Mantenha janelas fechadas no período informado.' },
+      { icon: 'paintbrush', t: 'Pintura de Áreas Comuns', d: 'Áreas pontuais ficarão isoladas. Atenção à sinalização de "tinta fresca".' },
+      { icon: 'zap', t: 'Reparo Elétrico', d: 'Possíveis quedas de energia programadas. Salve seus arquivos e desligue equipamentos sensíveis.' },
+      { icon: 'car', t: 'Limpeza de Garagem', d: 'Por favor, remova seu veículo da vaga no dia agendado para limpeza completa.' }
+    ]
+  },
+  'areas-comuns': {
+    label: 'Uso de Áreas Comuns', icon: 'sparkles',
+    title: 'Uso das Áreas Comuns', subtitle: 'Convivência harmoniosa começa com o respeito ao espaço compartilhado',
+    rules: [
+      { icon: 'calendar', t: 'Reserva Antecipada', d: 'Reserve pelo aplicativo antes de utilizar. Sem reserva confirmada, sem uso.' },
+      { icon: 'sparkles', t: 'Limpeza Após o Uso', d: 'Deixe o espaço como gostaria de encontrá-lo. Recolha embalagens e organize móveis.' },
+      { icon: 'clock', t: 'Horário de Funcionamento', d: 'Áreas comuns disponíveis nos horários definidos pelo regimento. Após o horário limite, apenas circulação.' },
+      { icon: 'users', t: 'Acompanhantes', d: 'Visitantes só podem usar as áreas com o morador responsável presente.' },
+      { icon: 'baby', t: 'Crianças Desacompanhadas', d: 'Crianças somente com adulto responsável em piscina, salão e academia.' },
+      { icon: 'utensils', t: 'Bebidas e Alimentos', d: 'Permitidos apenas em locais designados. Garrafas de vidro são proibidas na piscina.' },
+      { icon: 'dumbbell', t: 'Equipamentos da Academia', d: 'Use toalha sobre os aparelhos. Devolva pesos e acessórios ao lugar de origem.' },
+      { icon: 'palette', t: 'Decoração e Eventos', d: 'Comunique a administração antes de qualquer alteração temporária do espaço.' }
+    ]
+  },
+  lixo: {
+    label: 'Descarte de Lixo', icon: 'trash-2',
+    title: 'Descarte Correto de Lixo', subtitle: 'Cuidando do ambiente e da saúde de todos',
+    rules: [
+      { icon: 'package', t: 'Sacos Bem Fechados', d: 'Garanta que os sacos estejam totalmente fechados antes de descê-los à lixeira.' },
+      { icon: 'recycle', t: 'Coleta Seletiva', d: 'Separe recicláveis (papel, plástico, vidro, metal) dos resíduos orgânicos.' },
+      { icon: 'leaf', t: 'Lixo Orgânico', d: 'Embale com cuidado para evitar vazamentos. Evite descartar líquidos diretamente.' },
+      { icon: 'sofa', t: 'Móveis e Entulhos', d: 'Não descarte na lixeira comum. Solicite caçamba na portaria ou contrate retirada.' },
+      { icon: 'clock', t: 'Horário de Descarte', d: 'Coloque os sacos nas lixeiras nos horários permitidos pelo regimento, evitando proliferação de odores.' },
+      { icon: 'map-pin', t: 'Local Correto', d: 'Use sempre o ducto ou a lixeira designada. Nunca deixe sacos em corredores.' },
+      { icon: 'battery', t: 'Lâmpadas e Pilhas', d: 'Descarte em coletor especial na portaria. Não misture com o lixo comum.' },
+      { icon: 'package-2', t: 'Papelão', d: 'Desmonte caixas e amasse o papelão para economizar espaço na coleta.' }
+    ]
+  },
+  assembleias: {
+    label: 'Assembleias', icon: 'users',
+    title: 'Convocação de Assembleia', subtitle: 'Sua participação é essencial para o nosso condomínio',
+    rules: [
+      { icon: 'file-text', t: 'Convocação Oficial', d: 'Edital fixado na portaria com antecedência mínima conforme regimento. Confira também no aplicativo.' },
+      { icon: 'users', t: 'Quórum Mínimo', d: 'Compareça! Sem quórum, decisões importantes ficam paralisadas e há custo extra.' },
+      { icon: 'file-check', t: 'Documentos Necessários', d: 'Traga documento com foto e comprovante de propriedade ou contrato de aluguel.' },
+      { icon: 'scroll', t: 'Procuração', d: 'Quem não puder comparecer pode enviar procurador. Documento por escrito e assinado.' },
+      { icon: 'list-checks', t: 'Pauta Definida', d: 'Confira a pauta antes da assembleia. Sugestões devem ser enviadas com antecedência.' },
+      { icon: 'check-circle', t: 'Direito a Voto', d: 'Apenas adimplentes têm direito a voto. Regularize sua situação antes do dia.' },
+      { icon: 'video', t: 'Assembleias Virtuais', d: 'Acesse pelo link do aplicativo. Mantenha câmera ligada para validar presença.' },
+      { icon: 'file', t: 'Ata Disponível', d: 'A ata será publicada dentro do prazo previsto em regimento. Consulte no aplicativo.' }
+    ]
+  },
+  mudancas: {
+    label: 'Mudanças e Entregas', icon: 'package',
+    title: 'Mudanças e Entregas', subtitle: 'Procedimentos para um processo tranquilo e organizado',
+    rules: [
+      { icon: 'clock', t: 'Horário Permitido', d: 'Conforme os dias e horários definidos pelo regimento. Domingos e feriados geralmente não autorizados.' },
+      { icon: 'calendar', t: 'Agendamento Prévio', d: 'Comunique a portaria com antecedência mínima conforme definido pelo regimento.' },
+      { icon: 'arrow-up', t: 'Elevador de Serviço', d: 'Use exclusivamente o elevador de serviço. Não bloqueie elevadores sociais.' },
+      { icon: 'shield', t: 'Proteção do Elevador', d: 'Mantas e proteções são obrigatórias. Solicite-as na portaria antes de iniciar.' },
+      { icon: 'sparkles', t: 'Limpeza Após Mudança', d: 'Deixe áreas comuns limpas. Recolha plásticos, papelão e demais resíduos.' },
+      { icon: 'dollar-sign', t: 'Taxa de Mudança', d: 'Consulte o regimento. Pagamento deve ser feito antes do início do procedimento.' },
+      { icon: 'package', t: 'Entregas de Móveis', d: 'Use a portaria de serviço. Nunca bloqueie acessos ou rampas.' },
+      { icon: 'home', t: 'Móveis Volumosos', d: 'Verifique se passa pelo elevador. Em caso negativo, use as escadas com cautela.' }
+    ]
+  },
+  seguranca: {
+    label: 'Segurança', icon: 'shield',
+    title: 'Segurança em Primeiro Lugar', subtitle: 'Proteja você, sua família e seus vizinhos',
+    rules: [
+      { icon: 'user-check', t: 'Identificação de Visitantes', d: 'Sempre se identifique e autorize a entrada de visitantes pela portaria.' },
+      { icon: 'lock', t: 'Não Abra Portões', d: 'Nunca abra portões para desconhecidos, mesmo que digam "vou atrás de você".' },
+      { icon: 'video', t: 'Câmeras de Segurança', d: 'Áreas monitoradas continuamente. Imagens preservadas conforme a LGPD.' },
+      { icon: 'key', t: 'Chaves e Senhas', d: 'Não compartilhe códigos de acesso. Comunique perdas imediatamente à administração.' },
+      { icon: 'eye', t: 'Movimentações Suspeitas', d: 'Comunique a portaria sobre qualquer pessoa ou veículo desconhecido no prédio.' },
+      { icon: 'moon', t: 'Saídas Noturnas', d: 'Mantenha-se visível na entrada. Use o aplicativo para chamar Uber ou táxi.' },
+      { icon: 'shield', t: 'Trancas e Fechaduras', d: 'Mantenha portas trancadas, mesmo em saídas curtas para o corredor ou andar.' },
+      { icon: 'baby', t: 'Crianças Sozinhas', d: 'Crianças só descem com permissão registrada e identificação na portaria.' }
+    ]
+  },
+  inadimplencia: {
+    label: 'Inadimplência', icon: 'alert-triangle',
+    title: 'Sobre o Pagamento da Taxa', subtitle: 'Mantenha sua taxa em dia e evite transtornos',
+    rules: [
+      { icon: 'calendar', t: 'Data de Vencimento', d: 'Pague na data de vencimento definida pelo condomínio. Programe seu pagamento e ative lembretes.' },
+      { icon: 'alert-triangle', t: 'Multa e Juros', d: 'Após o vencimento incidem 2% de multa, juros de 1% ao mês e correção monetária.' },
+      { icon: 'smartphone', t: 'Boleto pelo App', d: 'Acesse a 2ª via do boleto a qualquer momento pelo App do Síndico.' },
+      { icon: 'mail', t: 'Negociação', d: 'Em dificuldades? Procure a administração. Negociamos parcelamento e condições especiais.' },
+      { icon: 'scroll', t: 'Cobrança Extrajudicial', d: 'Após o prazo definido no regimento, escritório de cobrança será acionado, gerando custos adicionais.' },
+      { icon: 'gavel', t: 'Cobrança Judicial', d: 'Em caso de atraso prolongado, ação judicial é iniciada. Custas processuais serão repassadas ao devedor.' },
+      { icon: 'ban', t: 'Restrição em Áreas', d: 'Inadimplentes ficam impedidos de utilizar salão de festas e áreas reserváveis.' },
+      { icon: 'check-circle', t: 'Direito a Voto', d: 'Apenas adimplentes votam em assembleia. Coloque sua taxa em dia para participar.' }
+    ]
+  },
+  reformas: {
+    label: 'Reformas', icon: 'hammer',
+    title: 'Regras para Reformas', subtitle: 'Procedimentos obrigatórios antes de iniciar qualquer obra',
+    rules: [
+      { icon: 'bell', t: 'Comunicação Prévia', d: 'Avise a administração com antecedência mínima conforme definido pelo regimento.' },
+      { icon: 'clock', t: 'Horário Permitido', d: 'Conforme horários estabelecidos pelo regimento. Geralmente proibido aos domingos e feriados.' },
+      { icon: 'file-text', t: 'Documentação', d: 'Apresente projeto, ART do responsável técnico e termo de responsabilidade assinado.' },
+      { icon: 'shield', t: 'Responsabilidade Civil', d: 'O morador responde por danos a vizinhos e à estrutura do edifício.' },
+      { icon: 'file-check', t: 'ART e RRT', d: 'Obrigatórias para obras estruturais. Sem documento técnico, a obra não é autorizada.' },
+      { icon: 'sparkles', t: 'Limpeza Diária', d: 'Mantenha áreas comuns sempre limpas. Recolha entulho ao final de cada dia.' },
+      { icon: 'package', t: 'Material de Construção', d: 'Não armazene em corredores, hall ou áreas comuns. Mantenha tudo dentro do apto.' },
+      { icon: 'users', t: 'Aviso aos Vizinhos', d: 'Informe pessoalmente os vizinhos diretos. Boa convivência facilita o processo.' }
+    ]
+  },
+  garagem: {
+    label: 'Garagem', icon: 'car',
+    title: 'Regras da Garagem', subtitle: 'Convivência segura e organizada no estacionamento',
+    rules: [
+      { icon: 'map-pin', t: 'Vaga Numerada', d: 'Use somente sua vaga. Invasão de outras vagas é considerada falta grave.' },
+      { icon: 'gauge', t: 'Velocidade Máxima', d: 'Respeite o limite de velocidade da garagem. Crianças, pedestres e ciclistas circulam pelo espaço.' },
+      { icon: 'droplets', t: 'Lavagem de Veículos', d: 'Apenas em local designado e com horário previamente agendado.' },
+      { icon: 'user', t: 'Vagas de Visitante', d: 'Disponíveis pelo tempo máximo definido pelo regimento. Solicite autorização na portaria.' },
+      { icon: 'wrench', t: 'Manutenção Mecânica', d: 'Proibida na garagem. Procure oficina especializada para reparos e troca de óleo.' },
+      { icon: 'package-x', t: 'Garagem como Depósito', d: 'Proibido armazenar móveis, entulhos ou objetos. Mantenha o espaço livre.' },
+      { icon: 'car', t: 'Estacionamento Correto', d: 'Estacione dentro das demarcações. Não bloqueie outros veículos ou rampas.' },
+      { icon: 'eye', t: 'Cuidado ao Manobrar', d: 'Use sempre o pisca e os retrovisores. Buzine ao sair de vagas com pouca visibilidade.' }
+    ]
+  },
+  pets: {
+    label: 'Pets', icon: 'dog',
+    title: 'Convivência com Pets', subtitle: 'Para que todos — humanos e animais — vivam em harmonia',
+    rules: [
+      { icon: 'shield', t: 'Coleira e Guia Curta', d: 'Obrigatórias em todas as áreas comuns do condomínio, sem exceções.' },
+      { icon: 'syringe', t: 'Vacinação em Dia', d: 'Mantenha o cartão de vacinação atualizado e disponível para conferência.' },
+      { icon: 'sparkles', t: 'Recolhimento de Fezes', d: 'Saquinhos disponíveis na portaria. Limpeza imediata de qualquer dejeto.' },
+      { icon: 'map-pin', t: 'Áreas Permitidas', d: 'Pets só circulam por áreas demarcadas. Salão de festas e piscina são proibidos.' },
+      { icon: 'dog', t: 'Cães de Grande Porte', d: 'Use focinheira e guia curta no elevador, conforme determina o regimento interno.' },
+      { icon: 'volume-x', t: 'Latido e Barulho', d: 'Treine seu pet. Latidos excessivos e prolongados podem gerar advertência formal.' },
+      { icon: 'arrow-up', t: 'Elevador de Serviço', d: 'Prefira o elevador de serviço com seu pet, especialmente em horários de pico.' },
+      { icon: 'file-check', t: 'Cadastro Obrigatório', d: 'Registre seu pet na administração com foto, raça e dados de identificação.' }
+    ]
+  },
+  economia: {
+    label: 'Economia de Água/Energia', icon: 'leaf',
+    title: 'Economia Consciente', subtitle: 'Pequenas atitudes diárias geram grandes resultados coletivos',
+    rules: [
+      { icon: 'droplet', t: 'Vazamentos', d: 'Comunique imediatamente vazamentos visíveis. Cada gota desperdiçada é dinheiro perdido.' },
+      { icon: 'droplets', t: 'Torneiras Bem Fechadas', d: 'Lave a louça e escove os dentes com a torneira fechada quando ensaboando.' },
+      { icon: 'lightbulb', t: 'Luzes em Áreas Comuns', d: 'Sensores instalados nas áreas comuns. Nunca desligue manualmente os interruptores.' },
+      { icon: 'snowflake', t: 'Ar-Condicionado', d: 'Mantenha em temperatura adequada. Cada grau a menos aumenta significativamente o consumo de energia.' },
+      { icon: 'leaf', t: 'Banhos Curtos', d: 'Banhos curtos economizam significativamente água e energia no condomínio.' },
+      { icon: 'gauge', t: 'Medidores Individuais', d: 'Acompanhe seu consumo no aplicativo. Anomalias apontam para vazamentos ocultos.' },
+      { icon: 'sun', t: 'Aproveite a Luz Natural', d: 'Mantenha cortinas abertas durante o dia. Apague luzes ao sair de cada ambiente.' },
+      { icon: 'plug', t: 'Stand-by dos Aparelhos', d: 'Desconecte aparelhos da tomada quando ausentar-se por períodos longos.' }
+    ]
+  },
+  salao: {
+    label: 'Salão de Festas', icon: 'party-popper',
+    title: 'Regras do Salão de Festas', subtitle: 'Para que sua festa seja inesquecível e tranquila para todos',
+    rules: [
+      { icon: 'calendar', t: 'Reserva Antecipada', d: 'Reserve pelo aplicativo com antecedência mínima conforme definido pelo regimento.' },
+      { icon: 'dollar-sign', t: 'Caução', d: 'Depósito refundável após inspeção de limpeza e integridade do espaço.' },
+      { icon: 'sparkles', t: 'Limpeza Pós-Evento', d: 'Limpe louças, mesas, cadeiras e piso. Ou contrate o serviço pela administração.' },
+      { icon: 'clock', t: 'Horário Limite', d: 'Respeite o horário limite para som e encerramento total do evento definidos pelo regimento.' },
+      { icon: 'users', t: 'Capacidade Máxima', d: 'Respeite o limite estabelecido em regimento. Segurança em primeiro lugar.' },
+      { icon: 'volume-2', t: 'Volume do Som', d: 'Volume moderado. Som amplificado profissional é proibido. Caixa pequena permitida.' },
+      { icon: 'palette', t: 'Decoração', d: 'Pode decorar, mas sem furar paredes ou usar materiais de difícil remoção.' },
+      { icon: 'baby', t: 'Crianças no Evento', d: 'Sob responsabilidade dos pais. Não deixe crianças sozinhas no salão ou áreas externas.' }
+    ]
+  },
+  criancas: {
+    label: 'Crianças', icon: 'baby',
+    title: 'Crianças no Condomínio', subtitle: 'Brincadeira segura é compromisso de todos',
+    rules: [
+      { icon: 'sparkles', t: 'Áreas de Brincar', d: 'Crianças correndo apenas em áreas designadas: playground e salão de jogos.' },
+      { icon: 'user-check', t: 'Acompanhamento de Adulto', d: 'Crianças sempre com responsável presente em áreas externas e comuns.' },
+      { icon: 'package', t: 'Brinquedos Recolhidos', d: 'Recolha brinquedos após o uso. Não obstrua áreas de circulação.' },
+      { icon: 'droplets', t: 'Piscina', d: 'Crianças só com adulto presente. Use boia de braço para não nadadores.' },
+      { icon: 'clock', t: 'Horário das Brincadeiras', d: 'Brincadeiras ativas até o horário definido pelo regimento. Após esse horário, atividades calmas e silenciosas.' },
+      { icon: 'shield', t: 'Bicicletas e Patinetes', d: 'Apenas em áreas demarcadas para essa finalidade. Uso de capacete obrigatório.' },
+      { icon: 'arrow-up-down', t: 'Elevador', d: 'Não brinque com botões. Adulto controla a operação para segurança de todos.' },
+      { icon: 'utensils', t: 'Lanches em Áreas Comuns', d: 'Recolha embalagens e migalhas. Mantenha o ambiente limpo e organizado.' }
+    ]
+  },
+  cadastro: {
+    label: 'Cadastro de Moradores', icon: 'user-plus',
+    title: 'Cadastro de Moradores', subtitle: 'Mantenha seus dados atualizados — agilidade e segurança para todos',
+    rules: [
+      { icon: 'calendar', t: 'Atualização Periódica', d: 'Atualize seus dados regularmente pelo App do Síndico.' },
+      { icon: 'file-text', t: 'Documentos Pessoais', d: 'Mantenha RG, CPF e comprovante de propriedade ou contrato de locação no app.' },
+      { icon: 'car', t: 'Veículos', d: 'Cadastre placa, modelo e cor. Atualize sempre que trocar de veículo.' },
+      { icon: 'dog', t: 'Pets', d: 'Inclua foto, raça, porte e cartão de vacinação no perfil do morador.' },
+      { icon: 'key', t: 'Inquilinos', d: 'Proprietários devem informar mudança de inquilino imediatamente à administração.' },
+      { icon: 'user-plus', t: 'Visitantes Frequentes', d: 'Cadastre familiares e funcionários domésticos para agilizar a entrada na portaria.' },
+      { icon: 'smartphone', t: 'Aplicativo Atualizado', d: 'Faça login no App do Síndico para gerenciar seus dados de forma digital.' },
+      { icon: 'phone', t: 'Contatos de Emergência', d: 'Mantenha pelo menos um contato externo cadastrado para situações de emergência.' }
+    ]
+  },
+  fachada: {
+    label: 'Fachada', icon: 'home',
+    title: 'Padrão de Fachada', subtitle: 'A uniformidade visual valoriza nosso patrimônio',
+    rules: [
+      { icon: 'shirt', t: 'Roupas em Varandas', d: 'Proibido estender roupas em varandas voltadas para a rua ou áreas visíveis.' },
+      { icon: 'frame', t: 'Quadros e Aparelhos', d: 'Não fixe nada na fachada externa. Padrão visual deve ser preservado.' },
+      { icon: 'palette', t: 'Pintura Padronizada', d: 'Cor da fachada é padronizada. Alterações precisam ser aprovadas em assembleia.' },
+      { icon: 'wifi', t: 'Antenas e Parabólicas', d: 'Apenas em pontos pré-determinados. Sem instalações irregulares no telhado.' },
+      { icon: 'flower-2', t: 'Vasos em Janelas', d: 'Permitidos somente com presilhas de segurança. Nunca soltos ou apoiados.' },
+      { icon: 'square', t: 'Toldos e Películas', d: 'Modelo único para todo o prédio. Consulte o padrão aprovado antes de instalar.' },
+      { icon: 'flag', t: 'Bandeiras e Faixas', d: 'Proibidas, salvo eventos especiais previamente comunicados à administração.' },
+      { icon: 'lightbulb', t: 'Iluminação Externa', d: 'Decorações temporárias precisam de autorização prévia da administração.' }
+    ]
+  },
+  emergencia: {
+    label: 'Emergência / Incêndio', icon: 'flame',
+    title: 'Procedimentos de Emergência', subtitle: 'Sua segurança e a dos seus vizinhos depende destas orientações',
+    rules: [
+      { icon: 'door-open', t: 'Saídas de Emergência', d: 'Conheça as rotas de fuga do seu andar. Mantenha portas livres de qualquer objeto.' },
+      { icon: 'flame', t: 'Extintores', d: 'Localize extintores no seu andar. Não obstrua o acesso com móveis ou plantas.' },
+      { icon: 'siren', t: 'Em Caso de Incêndio', d: 'Acione o alarme. Use as escadas de emergência. Nunca use o elevador.' },
+      { icon: 'shield-alert', t: 'Brigada de Incêndio', d: 'Equipe treinada. Siga as orientações dos brigadistas em caso de evacuação.' },
+      { icon: 'phone', t: 'Telefones de Emergência', d: 'Bombeiros 193, SAMU 192, Polícia 190. Salve estes números no celular agora.' },
+      { icon: 'droplet', t: 'Hidrantes', d: 'Nunca tampe ou bloqueie pontos de hidrantes nos andares ou áreas comuns.' },
+      { icon: 'bell', t: 'Detector de Fumaça', d: 'Reporte imediatamente à administração se notar mau funcionamento ou ausência.' },
+      { icon: 'users', t: 'Simulados Anuais', d: 'Participe dos simulados de evacuação. Sua segurança depende deste treino.' }
+    ]
+  },
+  'ar-condicionado': {
+    label: 'Ar-Condicionado', icon: 'snowflake',
+    title: 'Instalação e Uso de Ar-Condicionado', subtitle: 'Regras para garantir conforto sem prejudicar vizinhos ou a fachada',
+    rules: [
+      { icon: 'wrench', t: 'Local de Instalação', d: 'Apenas em locais pré-determinados pelo projeto. Sem furos na fachada principal.' },
+      { icon: 'droplets', t: 'Pingo de Água', d: 'Dreno adequado é obrigatório. Não pode pingar em vizinhos, calçada ou via pública.' },
+      { icon: 'volume-x', t: 'Controle de Ruído', d: 'Manutenção regular evita ruído excessivo. Compressores devem ficar em pontos isolados.' },
+      { icon: 'settings', t: 'Manutenção Periódica', d: 'Limpeza de filtros com regularidade. Manutenção técnica completa conforme recomendação do fabricante.' },
+      { icon: 'map-pin', t: 'Posição da Condensadora', d: 'Conforme projeto aprovado pela administração. Sem improvisos estruturais.' },
+      { icon: 'shield', t: 'Suporte Estrutural', d: 'Use suportes apropriados. Em caso de queda, responsabilidade é do morador.' },
+      { icon: 'check-circle', t: 'Modelo Aprovado', d: 'Consulte o regimento. Modelos antigos ou ruidosos podem não ser autorizados.' },
+      { icon: 'leaf', t: 'Eficiência Energética', d: 'Prefira modelos Inverter ou Selo Procel A para economia e baixo impacto.' }
+    ]
+  }
+};
+
+/* =========================================================
+   STATE
+   ========================================================= */
+const state = {
+  condominios: [...DEFAULT_CONDOMINIOS],
+  condSelecionado: '',
+  tipo: 'geral',
+  tituloGeral: '',
+  corpoGeral: '',
+  fontSize: '10',
+  fontColor: '#1e293b',
+  tema: 'silencio',
+  selecionadas: [],
+  textoExtra: '',
+  incluirImagem: false,
+  imagemDataUrl: ''
+};
+
+/* =========================================================
+   UTILS
+   ========================================================= */
+function $(sel) { return document.querySelector(sel); }
+function $$(sel) { return Array.from(document.querySelectorAll(sel)); }
+
+function dataPorExtenso() {
+  const meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+  const d = new Date();
+  return `Salvador, ${d.getDate()} de ${meses[d.getMonth()]} de ${d.getFullYear()}`;
+}
+
+function showToast(msg, type = 'success') {
+  const toast = $('#toast');
+  $('#toast-text').textContent = msg;
+  toast.className = `toast show ${type}`;
+  setTimeout(() => { toast.className = 'toast'; }, 2400);
+}
+
+function escapeHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+}
+
+function nl2html(s) { return escapeHtml(s).replace(/\n/g,'<br>'); }
+
+function safeCreateIcons() {
+  if (typeof lucide !== 'undefined' && lucide && typeof lucide.createIcons === 'function') {
+    try { lucide.createIcons(); } catch(e) { console.warn('Lucide:', e); }
+    return true;
+  }
+  return false;
+}
+
+function retryIcons() {
+  if (safeCreateIcons()) return;
+  let tries = 0;
+  const id = setInterval(() => { tries++; if (safeCreateIcons() || tries >= 20) clearInterval(id); }, 250);
+}
+
+/* =========================================================
+   FIT PREVIEW — scale A4 to fill preview frame
+   ========================================================= */
+function fitPreview() {
+  const frame = document.querySelector('.preview-frame');
+  const a4 = document.getElementById('a4');
+  const wrapper = document.querySelector('.a4-wrapper');
+  if (!frame || !a4 || !wrapper) return;
+
+  const pad = 36;
+  const availW = frame.clientWidth - pad;
+  const availH = frame.clientHeight - pad;
+  const a4W = a4.offsetWidth;
+  const a4H = a4.offsetHeight;
+  if (!a4W || !a4H) return;
+
+  const scale = Math.min(availW / a4W, availH / a4H, 1);
+  a4.style.transform = `scale(${scale})`;
+  a4.style.transformOrigin = 'top left';
+  wrapper.style.height = Math.ceil(a4H * scale) + 'px';
+  wrapper.style.width = Math.ceil(a4W * scale) + 'px';
+
+  const pct = Math.round(scale * 100);
+  const base = pct < 100
+    ? `A4 · Ajustado para <strong>${pct}%</strong>`
+    : `A4 · <strong>100%</strong>`;
+  // autoFit() roda antes de fitPreview() em render(), então a flag já está atual
+  $('#scale-info').innerHTML = conteudoCortado
+    ? `${base} · <strong style="color:var(--danger)">texto longo demais: encurte o corpo</strong>`
+    : base;
+}
+
+/* =========================================================
+   AUTO-FIT — encolhe o conteúdo do corpo para caber na folha A4.
+
+   IMPORTANTE: a redução é feita pela variável CSS --fit (fontes e
+   espaçamentos), e NÃO por transform: scale(). O Chrome do Android
+   descarta o texto de camadas transformadas ao exportar o PDF — o
+   preview de impressão aparece correto, mas o arquivo salvo saía com
+   o corpo do texto vazio.
+   ========================================================= */
+// Piso da redução. Baixo de propósito: texto pequeno é melhor do que texto
+// cortado — acima do limite o .com-body (overflow:hidden) suprime o excedente.
+const FIT_MIN = 0.30;
+
+// true quando nem no piso o conteúdo coube (avisa o usuário no preview).
+let conteudoCortado = false;
+
+function setFit(content, fit) {
+  content.style.setProperty('--fit', fit.toFixed(3));
+}
+
+function autoFit() {
+  const body = $('#com-body');
+  const content = $('#com-body-content');
+  if (!body || !content) return;
+
+  setFit(content, 1);
+  conteudoCortado = false;
+
+  const available = body.clientHeight;
+  if (!available) return;
+  if (content.scrollHeight <= available) return; // já cabe em tamanho normal
+
+  // Busca binária pelo maior fator que ainda cabe. Não dá para calcular
+  // direto: ao diminuir a fonte o texto reflui e ocupa menos linhas, então
+  // a altura não é proporcional ao fator.
+  let lo = FIT_MIN, hi = 1, melhor = FIT_MIN;
+  for (let i = 0; i < 10; i++) {
+    const mid = (lo + hi) / 2;
+    setFit(content, mid);
+    if (content.scrollHeight <= available) { melhor = mid; lo = mid; }
+    else { hi = mid; }
+  }
+  setFit(content, melhor);
+  conteudoCortado = content.scrollHeight > available;
+}
+
+/* =========================================================
+   RENDER FORM
+   ========================================================= */
+function renderCondsSelect() {
+  const sel = $('#select-cond');
+  const ph = `<option value="" disabled${!state.condSelecionado ? ' selected' : ''}>Selecione o Condomínio</option>`;
+  sel.innerHTML = ph + state.condominios.map(n =>
+    `<option value="${escapeHtml(n)}"${n === state.condSelecionado ? ' selected' : ''}>${escapeHtml(n)}</option>`
+  ).join('');
+}
+
+function renderTemasSelect() {
+  const sel = $('#select-tema');
+  sel.innerHTML = Object.entries(TEMAS).map(([key, t]) =>
+    `<option value="${key}"${key === state.tema ? ' selected' : ''}>${escapeHtml(t.label)}</option>`
+  ).join('');
+}
+
+function renderRulesList() {
+  const tema = TEMAS[state.tema];
+  if (!tema) return;
+  const list = $('#rules-list');
+  const sel = state.selecionadas;
+  const max = 6;
+  list.innerHTML = tema.rules.map((r, i) => {
+    const isSel = sel.includes(i);
+    const disabled = !isSel && sel.length >= max;
+    return `
+      <div class="rule-item ${isSel ? 'selected' : ''} ${disabled ? 'disabled' : ''}" data-idx="${i}">
+        <div class="rule-checkbox"><i data-lucide="check"></i></div>
+        <div class="rule-content">
+          <div class="rule-title">${escapeHtml(r.t)}</div>
+          <div class="rule-desc">${escapeHtml(r.d)}</div>
+        </div>
+      </div>`;
+  }).join('');
+
+  $('#counter-num').textContent = sel.length;
+  $('#rules-counter').classList.toggle('full', sel.length >= max);
+
+  list.querySelectorAll('.rule-item').forEach(el => {
+    el.addEventListener('click', () => {
+      const idx = parseInt(el.dataset.idx, 10);
+      const pos = state.selecionadas.indexOf(idx);
+      if (pos >= 0) {
+        state.selecionadas.splice(pos, 1);
+      } else {
+        if (state.selecionadas.length >= max) { showToast('Limite de 6 regras atingido', 'error'); return; }
+        state.selecionadas.push(idx);
+      }
+      renderRulesList();
+      render();
+    });
+  });
+  safeCreateIcons();
+}
+
+/* =========================================================
+   RENDER PREVIEW
+   ========================================================= */
+function render() {
+  $('#cm-cond').textContent = state.condSelecionado || 'Selecione um condomínio';
+  $('#cm-date').textContent = dataPorExtenso();
+
+  const greeting = $('#cm-greeting');
+  let titleIconName = 'megaphone';
+  let titleText = 'Comunicado aos Moradores';
+  let subtitleText = 'Informativo exclusivo para moradores';
+  let dynamicHTML = '';
+
+  if (state.tipo === 'geral') {
+    titleText = state.tituloGeral.trim() || 'Comunicado aos Moradores';
+    // Apply font formatting to greeting
+    if (greeting) {
+      greeting.style.fontSize = `calc(${state.fontSize}pt * var(--fit))`;
+      greeting.style.color = state.fontColor;
+    }
+    if (state.incluirImagem && state.imagemDataUrl) {
+      dynamicHTML += `<img class="com-image-float" src="${state.imagemDataUrl}" alt="Imagem do comunicado">`;
+    }
+    if (state.corpoGeral.trim()) {
+      dynamicHTML += `<div class="com-text" style="font-size:calc(${state.fontSize}pt * var(--fit));color:${state.fontColor};">${nl2html(state.corpoGeral.trim())}</div>`;
+    }
+  } else {
+    // Reset greeting style for tema mode
+    if (greeting) { greeting.style.fontSize = ''; greeting.style.color = ''; }
+    const tema = TEMAS[state.tema];
+    if (tema) {
+      titleText = tema.title;
+      subtitleText = tema.subtitle;
+      titleIconName = tema.icon;
+      const selected = state.selecionadas.map(i => tema.rules[i]).filter(Boolean);
+      if (selected.length > 0) {
+        const cols = selected.length <= 2 ? 1 : 2;
+        const isOdd = selected.length % 2 === 1 && cols === 2;
+        const rulesHTML = selected.map((r, i) => {
+          const span = (isOdd && i === selected.length - 1) ? ' com-rule-span-2' : '';
+          return `<div class="com-rule${span}">
+            <div class="com-rule-icon"><i data-lucide="${escapeHtml(r.icon)}"></i></div>
+            <div class="com-rule-content">
+              <div class="com-rule-title">${escapeHtml(r.t)}</div>
+              <div class="com-rule-desc">${escapeHtml(r.d)}</div>
+            </div>
+          </div>`;
+        }).join('');
+        dynamicHTML += `<div class="com-rules cols-${cols}">${rulesHTML}</div>`;
+      } else {
+        dynamicHTML += `<div class="com-text" style="text-align:center;color:var(--text-muted);font-style:italic;padding:8mm 0;">Selecione ao menos uma regra para visualizar o comunicado.</div>`;
+      }
+    }
+  }
+
+  if (state.textoExtra.trim()) {
+    dynamicHTML += `<div class="com-custom"><div class="com-custom-label">Atenção</div>${nl2html(state.textoExtra.trim())}</div>`;
+  }
+
+  $('#cm-title').textContent = titleText;
+  $('#cm-subtitle').textContent = subtitleText;
+  $('#cm-icon').innerHTML = `<i data-lucide="${escapeHtml(titleIconName)}"></i>`;
+  $('#cm-dynamic').innerHTML = dynamicHTML;
+
+  safeCreateIcons();
+  requestAnimationFrame(() => { autoFit(); fitPreview(); });
+}
+
+/* =========================================================
+   EVENTS
+   ========================================================= */
+function bindEvents() {
+  $('#select-cond').addEventListener('change', e => { state.condSelecionado = e.target.value; render(); });
+
+  $('#btn-add-cond').addEventListener('click', () => {
+    const nome = prompt('Nome do condomínio:');
+    if (nome && nome.trim()) {
+      const novo = nome.trim();
+      if (!state.condominios.includes(novo)) {
+        state.condominios.unshift(novo);
+        state.condSelecionado = novo;
+        renderCondsSelect();
+        render();
+        showToast('Condomínio adicionado');
+      }
+    }
+  });
+
+  $$('.toggle button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      $$('.toggle button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.tipo = btn.dataset.tipo;
+      $('#form-geral').style.display = state.tipo === 'geral' ? '' : 'none';
+      $('#form-tema').style.display = state.tipo === 'tema' ? '' : 'none';
+      render();
+    });
+  });
+
+  // Desabilita "Muito grande (20pt)" quando o corpo passa de 1200 caracteres
+  const LIMITE_FONTE_GRANDE = 1200;
+  function atualizarOpcaoFonteGrande() {
+    const sel = $('#input-fontsize');
+    const opt = sel.querySelector('option[value="20"]');
+    const bloquear = state.corpoGeral.length > LIMITE_FONTE_GRANDE;
+    opt.disabled = bloquear;
+    if (bloquear && sel.value === '20') {
+      sel.value = '16';
+      state.fontSize = '16';
+    }
+  }
+
+  $('#input-titulo').addEventListener('input', e => { state.tituloGeral = e.target.value; render(); });
+  $('#input-corpo').addEventListener('input', e => {
+    state.corpoGeral = e.target.value;
+    $('#corpo-count').textContent = e.target.value.length;
+    atualizarOpcaoFonteGrande();
+    render();
+  });
+  $('#input-fontsize').addEventListener('change', e => { state.fontSize = e.target.value; render(); });
+  $('#input-color').addEventListener('input', e => { state.fontColor = e.target.value; render(); });
+
+  $('#chk-incluir-imagem').addEventListener('change', e => {
+    state.incluirImagem = e.target.checked;
+    $('#img-upload-wrap').style.display = state.incluirImagem ? '' : 'none';
+    if (!state.incluirImagem) {
+      state.imagemDataUrl = '';
+      $('#input-img').value = '';
+      $('#btn-remove-img').style.display = 'none';
+    }
+    render();
+  });
+
+  $('#input-img').addEventListener('change', e => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      showToast('Selecione um arquivo de imagem válido', 'error');
+      e.target.value = '';
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      showToast('Imagem muito grande (máx. 5 MB)', 'error');
+      e.target.value = '';
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = ev => {
+      state.imagemDataUrl = ev.target.result;
+      $('#btn-remove-img').style.display = '';
+      render();
+    };
+    reader.onerror = () => showToast('Erro ao ler a imagem', 'error');
+    reader.readAsDataURL(file);
+  });
+
+  $('#btn-remove-img').addEventListener('click', () => {
+    state.imagemDataUrl = '';
+    $('#input-img').value = '';
+    $('#btn-remove-img').style.display = 'none';
+    render();
+  });
+
+  $('#select-tema').addEventListener('change', e => {
+    state.tema = e.target.value;
+    state.selecionadas = [];
+    renderRulesList();
+    render();
+  });
+
+  $('#input-extra').addEventListener('input', e => {
+    state.textoExtra = e.target.value;
+    $('#extra-count').textContent = e.target.value.length;
+    render();
+  });
+
+  $('#btn-clear').addEventListener('click', () => {
+    if (!confirm('Limpar o formulário e começar de novo?')) return;
+    state.tituloGeral = ''; state.corpoGeral = ''; state.selecionadas = []; state.textoExtra = '';
+    state.fontSize = '10'; state.fontColor = '#1e293b';
+    state.incluirImagem = false; state.imagemDataUrl = '';
+    $('#input-titulo').value = ''; $('#input-corpo').value = ''; $('#input-extra').value = '';
+    $('#input-fontsize').value = '10'; $('#input-color').value = '#1e293b';
+    $('#corpo-count').textContent = '0'; $('#extra-count').textContent = '0';
+    atualizarOpcaoFonteGrande();
+    $('#chk-incluir-imagem').checked = false;
+    $('#input-img').value = '';
+    $('#img-upload-wrap').style.display = 'none';
+    $('#btn-remove-img').style.display = 'none';
+    renderRulesList(); render();
+    showToast('Formulário limpo');
+  });
+
+  $('#btn-print').addEventListener('click', () => { autoFit(); setTimeout(() => window.print(), 100); });
+
+  let rt;
+  window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(fitPreview, 150); });
+  window.addEventListener('beforeprint', autoFit);
+}
+
+/* =========================================================
+   INIT
+   ========================================================= */
+function init() {
+  renderCondsSelect();
+  renderTemasSelect();
+  renderRulesList();
+  bindEvents();
+  render();
+  retryIcons();
+  setTimeout(fitPreview, 150);
+
+  // As fontes do Google chegam depois do primeiro render e mudam a altura do
+  // texto. Sem este reajuste, a medida feita com a fonte de fallback fica
+  // errada e sobra conteúdo fora da folha (cortado pelo overflow:hidden).
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => { autoFit(); fitPreview(); });
+  }
+  window.addEventListener('load', () => { autoFit(); fitPreview(); });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+</script>
+</body>
+</html>

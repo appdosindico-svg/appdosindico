@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aplicativo | App do Síndico</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" href="images/icone_circular.png">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #0d1b2a, #1e4080 60%, #e9edf5);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      color: #333;
+    }
+
+    .container {
+      max-width: 400px;
+      width: 90%;
+      margin: auto;
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+      text-align: center;
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      width: 120px;
+      margin: 0 auto 10px;
+    }
+
+    h1 {
+      font-size: 1.2rem;
+      margin: 10px 0 5px;
+      color: #0d1b2a;
+    }
+
+    p {
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    .store-buttons img {
+      width: 100%;
+      max-width: 250px;
+      height: auto;
+      margin: 10px 0;
+    }
+
+    /* Badges das lojas ainda sem link — desabilitadas */
+    .store-badge {
+      display: inline-block;
+      cursor: default;
+      opacity: 0.45;
+      filter: grayscale(100%);
+    }
+
+    .store-note {
+      font-size: 0.8rem;
+      color: #6c757d;
+      margin: 8px 0 0;
+      font-style: italic;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.85rem;
+      margin-bottom: 15px;
+      color: #0d1b2a;
+      font-weight: bold;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        margin-top: 20px;
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 1rem;
+      }
+
+      p {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="images/icone_circular.png" alt="App do Síndico" class="logo" />
+    <h1>App do Síndico</h1>
+    <p>Ferramentas para o Síndico na palma da mão!</p>
+    <div class="store-buttons">
+      <span class="store-badge">
+        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" />
+      </span>
+      <span class="store-badge">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" />
+      </span>
+      <p class="store-note">Links de download em breve.</p>
+    </div>
+  </div>
+  <footer>www.appdosindico.com.br</footer>
+</body>
+</html>

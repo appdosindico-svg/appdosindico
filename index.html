@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="App do Síndico — o aplicativo que coloca a gestão do condomínio na palma da mão. Financeiro, manutenção, cotações com análise por IA, reservas, mural, ocorrências e muito mais.">
+  <title>App do Síndico | Ferramentas para o Síndico na palma da mão</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" href="images/icone_circular.png">
+  <link rel="apple-touch-icon" href="images/icone_circular.png">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar" role="navigation" aria-label="Menu principal">
+    <div class="container">
+      <a href="index.html" class="nav-logo" aria-label="App do Síndico - Início">
+        <img src="images/icone_circular.png" alt="App do Síndico" class="nav-logo-img">
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">App do Síndico</span>
+          <span class="nav-logo-sub">Gestão Condominial</span>
+        </div>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#recursos">Recursos</a></li>
+        <li><a href="#modulos">Módulos</a></li>
+        <li><a href="#perfis">Para quem é</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="qrcode.html" class="btn btn-primary">
+          <i class="fas fa-download"></i> Baixar o App
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="container">
+      <div class="app-hero-grid">
+        <div class="hero-content">
+          <p class="hero-eyebrow">Aplicativo para Síndicos e Condomínios</p>
+          <h1>Ferramentas para o Síndico <em>na palma da mão</em></h1>
+          <p class="hero-lead">
+            O <strong>App do Síndico</strong> reúne em um só lugar tudo o que a gestão de um condomínio
+            exige: financeiro, manutenção, cotações com análise por inteligência artificial, reservas,
+            comunicados, ocorrências e o dia a dia dos moradores. Simples para quem mora, completo para
+            quem administra.
+          </p>
+          <div class="hero-actions">
+            <a href="qrcode.html" class="btn btn-primary">
+              <i class="fas fa-mobile-alt"></i> Conhecer o aplicativo
+            </a>
+            <a href="#recursos" class="btn btn-outline">
+              Ver recursos <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+          <div class="hero-stats">
+            <div>
+              <span class="hero-stat-number">1 app</span>
+              <span class="hero-stat-label">Síndico, morador e portaria</span>
+            </div>
+            <div>
+              <span class="hero-stat-number">IA</span>
+              <span class="hero-stat-label">Análise inteligente de cotações</span>
+            </div>
+            <div>
+              <span class="hero-stat-number">24/7</span>
+              <span class="hero-stat-label">Condomínio acessível de onde estiver</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-hero-visual">
+          <div class="app-hero-logo">
+            <img src="images/icone_circular.png" alt="Logotipo do App do Síndico">
+          </div>
+          <span class="app-hero-tag">A gestão do condomínio na palma da mão</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO / O QUE É -->
+  <section class="section" id="recursos">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="eyebrow">O que é o App do Síndico</span>
+        <h2>Um aplicativo exclusivo e intuitivo</h2>
+        <p>
+          Disponível para moradores, administradores e gestores, o App do Síndico coloca toda a
+          comodidade e o controle do condomínio na palma da mão — do boleto do morador ao balancete
+          do síndico, tudo no mesmo lugar, atualizado em tempo real.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card fade-up delay-1">
+          <div class="service-icon"><i class="fas fa-calendar-check"></i></div>
+          <h3>Reserva de Áreas Comuns</h3>
+          <p>Reserva rápida do salão de festas, churrasqueira, quadra ou espaço gourmet, com regras, calendário e confirmação automática.</p>
+        </div>
+        <div class="service-card fade-up delay-2">
+          <div class="service-icon"><i class="fas fa-bullhorn"></i></div>
+          <h3>Mural Digital</h3>
+          <p>Comunicados e avisos publicados pelo síndico chegam a todos os moradores por notificação, com histórico e confirmação de leitura.</p>
+        </div>
+        <div class="service-card fade-up delay-3">
+          <div class="service-icon"><i class="fas fa-clipboard-list"></i></div>
+          <h3>Ocorrências</h3>
+          <p>Registro e acompanhamento de ocorrências com fotos, status e resposta do síndico — nada mais se perde no grupo de WhatsApp.</p>
+        </div>
+        <div class="service-card fade-up delay-4">
+          <div class="service-icon"><i class="fas fa-box-open"></i></div>
+          <h3>Encomendas</h3>
+          <p>Notificação de entrega assim que a portaria registra o pacote, com aviso de retirada e histórico por unidade.</p>
+        </div>
+        <div class="service-card fade-up delay-5">
+          <div class="service-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+          <h3>Boletos e Taxas</h3>
+          <p>Acesso fácil à 2ª via dos boletos das taxas condominiais, direto no celular, a qualquer hora.</p>
+        </div>
+        <div class="service-card fade-up delay-6">
+          <div class="service-icon"><i class="fas fa-user-shield"></i></div>
+          <h3>Visitantes</h3>
+          <p>Cadastro e autorização prévia de visitantes e prestadores, agilizando a liberação na portaria com segurança.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MÓDULOS DE GESTÃO -->
+  <section class="section section-alt" id="modulos">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="eyebrow">Para o síndico profissional</span>
+        <h2>Módulos de Gestão</h2>
+        <p>É aqui que o App do Síndico vai além de um app de condomínio comum: ferramentas de gestão de verdade, feitas para quem administra vários condomínios.</p>
+      </div>
+
+      <div class="module-list">
+
+        <article class="module-card fade-up">
+          <div class="module-head">
+            <div class="module-icon"><i class="fas fa-chart-line"></i></div>
+            <div>
+              <h3>Financeiro</h3>
+              <span class="module-tag">Controle total das contas do condomínio</span>
+            </div>
+          </div>
+          <p>Lançamento de receitas e despesas, contas a pagar e a receber, controle de saldo por conta, categorias de despesa e acompanhamento da inadimplência — com visão consolidada mês a mês.</p>
+          <ul class="module-points">
+            <li><i class="fas fa-check"></i> Receitas e despesas por categoria e centro de custo</li>
+            <li><i class="fas fa-check"></i> Contas a pagar com vencimentos e alertas</li>
+            <li><i class="fas fa-check"></i> Controle de inadimplência por unidade</li>
+            <li><i class="fas fa-check"></i> Prestação de contas e balancete para a assembleia</li>
+            <li><i class="fas fa-check"></i> Relatórios prontos para compartilhar com os condôminos</li>
+          </ul>
+        </article>
+
+        <article class="module-card fade-up">
+          <div class="module-head">
+            <div class="module-icon"><i class="fas fa-screwdriver-wrench"></i></div>
+            <div>
+              <h3>Manutenção</h3>
+              <span class="module-tag">Preventiva e corretiva sob controle</span>
+            </div>
+          </div>
+          <p>Cadastro dos equipamentos e sistemas do condomínio com plano de manutenção preventiva, agenda de vencimentos e histórico completo de cada intervenção realizada.</p>
+          <ul class="module-points">
+            <li><i class="fas fa-check"></i> Plano de manutenção preventiva com periodicidade</li>
+            <li><i class="fas fa-check"></i> Alertas de vencimento (elevadores, bombas, extintores, AVCB)</li>
+            <li><i class="fas fa-check"></i> Ordens de serviço e acompanhamento de execução</li>
+            <li><i class="fas fa-check"></i> Histórico por equipamento, com fotos e custos</li>
+            <li><i class="fas fa-check"></i> Registro de fornecedores e garantias</li>
+          </ul>
+        </article>
+
+        <article class="module-card fade-up highlight">
+          <div class="module-head">
+            <div class="module-icon"><i class="fas fa-robot"></i></div>
+            <div>
+              <h3>Cotações com Análise por IA</h3>
+              <span class="module-tag">Decisão mais rápida e mais segura</span>
+            </div>
+          </div>
+          <p>Cadastre a necessidade, receba as propostas dos fornecedores e deixe a inteligência artificial comparar. O app analisa escopo, preço, prazo e condições, aponta divergências entre os orçamentos e resume tudo em um parecer pronto para levar à assembleia.</p>
+          <ul class="module-points">
+            <li><i class="fas fa-check"></i> Comparativo automático entre propostas</li>
+            <li><i class="fas fa-check"></i> Parecer da IA destacando riscos, omissões e melhor custo-benefício</li>
+            <li><i class="fas fa-check"></i> Escopos diferentes identificados antes da contratação</li>
+            <li><i class="fas fa-check"></i> Documento consolidado para apresentar aos condôminos</li>
+            <li><i class="fas fa-check"></i> Histórico de cotações para consultas futuras</li>
+          </ul>
+        </article>
+
+        <article class="module-card fade-up">
+          <div class="module-head">
+            <div class="module-icon"><i class="fas fa-cake-candles"></i></div>
+            <div>
+              <h3>Aniversariantes</h3>
+              <span class="module-tag">Relacionamento com o morador</span>
+            </div>
+          </div>
+          <p>O condomínio também é relação humana. O módulo de aniversariantes mostra quem faz aniversário no mês e ajuda o síndico a manter uma comunicação próxima e cordial com os moradores.</p>
+          <ul class="module-points">
+            <li><i class="fas fa-check"></i> Lista de aniversariantes do dia e do mês</li>
+            <li><i class="fas fa-check"></i> Lembretes automáticos para o síndico</li>
+            <li><i class="fas fa-check"></i> Mensagens de felicitação em poucos toques</li>
+          </ul>
+        </article>
+
+        <article class="module-card fade-up">
+          <div class="module-head">
+            <div class="module-icon"><i class="fas fa-building-user"></i></div>
+            <div>
+              <h3>Condomínios, Unidades e Moradores</h3>
+              <span class="module-tag">A base de tudo, organizada</span>
+            </div>
+          </div>
+          <p>Cadastro completo de condomínios, blocos, unidades, proprietários, inquilinos e dependentes — com controle de quem pode ver e fazer o quê dentro do aplicativo.</p>
+          <ul class="module-points">
+            <li><i class="fas fa-check"></i> Múltiplos condomínios no mesmo login</li>
+            <li><i class="fas fa-check"></i> Perfis e permissões por tipo de usuário</li>
+            <li><i class="fas fa-check"></i> Dados de contato sempre atualizados pelo próprio morador</li>
+          </ul>
+        </article>
+
+        <article class="module-card fade-up">
+          <div class="module-head">
+            <div class="module-icon"><i class="fas fa-door-open"></i></div>
+            <div>
+              <h3>Portaria e Controle de Acesso</h3>
+              <span class="module-tag">Módulo exclusivo dos funcionários</span>
+            </div>
+          </div>
+          <p>Ferramenta operacional para a equipe do condomínio: registro de encomendas, entrada de visitantes e prestadores, ocorrências do turno e registro de ponto com localização.</p>
+          <ul class="module-points">
+            <li><i class="fas fa-check"></i> Registro de encomendas com aviso ao morador</li>
+            <li><i class="fas fa-check"></i> Entrada de visitantes autorizados previamente</li>
+            <li><i class="fas fa-check"></i> Livro de ocorrências digital por turno</li>
+            <li><i class="fas fa-check"></i> Registro de ponto dos colaboradores</li>
+          </ul>
+        </article>
+
+        <article class="module-card fade-up">
+          <div class="module-head">
+            <div class="module-icon"><i class="fas fa-file-signature"></i></div>
+            <div>
+              <h3>Comunicados e Documentos</h3>
+              <span class="module-tag">Tudo documentado</span>
+            </div>
+          </div>
+          <p>Geração e envio de comunicados oficiais, além do acervo de documentos do condomínio — convenção, regimento interno, atas e balancetes — sempre disponível para consulta.</p>
+          <ul class="module-points">
+            <li><i class="fas fa-check"></i> Comunicados prontos para impressão em A4</li>
+            <li><i class="fas fa-check"></i> Convenção, regimento e atas ao alcance de todos</li>
+            <li><i class="fas fa-check"></i> Notificação push a cada nova publicação</li>
+          </ul>
+        </article>
+
+        <article class="module-card fade-up">
+          <div class="module-head">
+            <div class="module-icon"><i class="fas fa-bell"></i></div>
+            <div>
+              <h3>Notificações Inteligentes</h3>
+              <span class="module-tag">A informação certa, na hora certa</span>
+            </div>
+          </div>
+          <p>Avisos push segmentados por perfil, bloco ou unidade: encomenda chegou, reserva confirmada, boleto disponível, manutenção agendada, assembleia convocada.</p>
+          <ul class="module-points">
+            <li><i class="fas fa-check"></i> Envio segmentado por condomínio, bloco ou perfil</li>
+            <li><i class="fas fa-check"></i> Alertas operacionais para o síndico</li>
+            <li><i class="fas fa-check"></i> Histórico de tudo que foi enviado</li>
+          </ul>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PARA QUEM É -->
+  <section class="section" id="perfis">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="eyebrow">Um app, três experiências</span>
+        <h2>Feito para quem administra e para quem mora</h2>
+        <p>Cada usuário enxerga exatamente o que precisa — sem poluição, sem menu que não serve para ele.</p>
+      </div>
+
+      <div class="profile-cards">
+        <div class="profile-card fade-up delay-1">
+          <div class="profile-card-icon"><i class="fas fa-user-tie"></i></div>
+          <h3>Síndico Profissional</h3>
+          <p>Administre vários condomínios com o financeiro, a manutenção e as cotações organizados. Chegue à assembleia com números e pareceres prontos, não com planilhas soltas.</p>
+        </div>
+        <div class="profile-card fade-up delay-2">
+          <div class="profile-card-icon"><i class="fas fa-users"></i></div>
+          <h3>Moradores</h3>
+          <p>Reservas, boletos, comunicados, ocorrências, encomendas e autorização de visitantes em um app simples, que qualquer morador aprende a usar em minutos.</p>
+        </div>
+        <div class="profile-card fade-up delay-3">
+          <div class="profile-card-icon"><i class="fas fa-user-gear"></i></div>
+          <h3>Portaria e Equipe</h3>
+          <p>Módulo operacional para porteiros e zeladores: encomendas, acessos, ocorrências do turno e registro de ponto, com tudo ficando registrado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POR QUE -->
+  <section class="pillars-section" id="diferenciais">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="eyebrow">Por que o App do Síndico</span>
+        <h2 style="color: white;">Menos papel, menos grupo de WhatsApp, mais gestão</h2>
+        <p>O que muda no dia a dia de quem passa a usar o aplicativo.</p>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-item fade-up delay-1">
+          <i class="fas fa-bolt"></i>
+          <h4>Decisão mais rápida</h4>
+          <p>Cotações comparadas pela IA e números do financeiro sempre à mão.</p>
+        </div>
+        <div class="why-item fade-up delay-2">
+          <i class="fas fa-shield-halved"></i>
+          <h4>Tudo registrado</h4>
+          <p>Ocorrências, comunicados e manutenções com histórico e data — proteção para o síndico.</p>
+        </div>
+        <div class="why-item fade-up delay-3">
+          <i class="fas fa-eye"></i>
+          <h4>Transparência</h4>
+          <p>O morador acompanha o que acontece no condomínio sem precisar cobrar.</p>
+        </div>
+        <div class="why-item fade-up delay-4">
+          <i class="fas fa-mobile-screen"></i>
+          <h4>No celular, sempre</h4>
+          <p>Android e iPhone, com notificações que avisam antes do problema aparecer.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band" id="contato">
+    <div class="container">
+      <div class="fade-up">
+        <h2>Quer o App do Síndico no seu condomínio?</h2>
+        <p>Fale com a nossa equipe de suporte ao cliente e descubra como levar toda a gestão do condomínio para a palma da mão.</p>
+        <a href="https://wa.me/5571992071319" class="btn btn-dark" target="_blank" rel="noopener noreferrer" style="font-size: 1rem; padding: 1rem 2.25rem;">
+          <i class="fab fa-whatsapp"></i> Falar pelo WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">
+            <img src="images/icone_circular.png" alt="App do Síndico" class="nav-logo-img">
+            <div class="nav-logo-text">
+              <span class="nav-logo-name">App do Síndico</span>
+              <span class="nav-logo-sub">Gestão Condominial</span>
+            </div>
+          </a>
+          <p>Ferramentas para o Síndico na palma da mão. Financeiro, manutenção, cotações com análise por IA, reservas, comunicados e o dia a dia do condomínio em um só aplicativo.</p>
+        </div>
+        <div class="footer-col">
+          <h4>O Aplicativo</h4>
+          <ul class="footer-links">
+            <li><a href="#recursos">Recursos</a></li>
+            <li><a href="#modulos">Módulos</a></li>
+            <li><a href="#perfis">Para quem é</a></li>
+            <li><a href="qrcode.html">Baixar o App</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="politica.html">Política de Privacidade</a></li>
+            <li><a href="exclusaodados.html">Exclusão de Conta e Dados</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Suporte ao Cliente</h4>
+          <div class="footer-contact-item">
+            <i class="fas fa-envelope"></i>
+            <a href="mailto:appdosindico@gmail.com">appdosindico@gmail.com</a>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fab fa-whatsapp"></i>
+            <a href="https://wa.me/5571992071319" target="_blank" rel="noopener noreferrer">Fale pelo WhatsApp</a>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-globe"></i>
+            <a href="https://www.appdosindico.com.br">www.appdosindico.com.br</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 App do Síndico. Todos os direitos reservados.</p>
+        <p>A gestão do condomínio na palma da mão</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/5571992071319" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Conversar pelo WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+    <span>Fale pelo WhatsApp</span>
+  </a>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
