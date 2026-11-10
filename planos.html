@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Planos do App do Síndico: Basic, Pro e Ultra. Gestão completa do condomínio no celular, para síndico morador e síndico profissional. Valores sob consulta por e-mail.">
+  <title>Planos | App do Síndico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/planos.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" href="images/icone_circular.png">
+  <link rel="apple-touch-icon" href="images/icone_circular.png">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar" role="navigation" aria-label="Menu principal">
+    <div class="container">
+      <a href="index.html" class="nav-logo" aria-label="App do Síndico - Início">
+        <img src="images/icone_circular.png" alt="App do Síndico" class="nav-logo-img">
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">App do Síndico</span>
+          <span class="nav-logo-sub">Gestão Condominial</span>
+        </div>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#recursos">Recursos</a></li>
+        <li><a href="index.html#modulos">Módulos</a></li>
+        <li><a href="planos.html">Planos</a></li>
+        <li><a href="index.html#perfis">Para quem é</a></li>
+        <li><a href="#contratar">Contato</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="qrcode.html" class="btn btn-primary">
+          <i class="fas fa-download"></i> Baixar o App
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="page-hero plans-hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Início</a>
+        <i class="fas fa-chevron-right"></i>
+        <span>Planos</span>
+      </div>
+      <h1>Planos do App do Síndico</h1>
+      <p>
+        Três planos para levar a gestão do condomínio para a palma da mão, seja você síndico morador
+        ou síndico profissional. Os valores são sob consulta: escreva para a gente e receba uma
+        proposta feita para o tamanho do seu condomínio.
+      </p>
+      <div class="plans-hero-actions">
+        <a href="#planos" class="btn btn-primary"><i class="fas fa-layer-group"></i> Ver os planos</a>
+        <a href="mailto:contato@appdosindico.com.br" class="btn btn-outline js-mail" data-plan="">
+          <i class="fas fa-envelope"></i> Pedir orçamento por e-mail
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TELAS (CARROSSEL) -->
+  <section class="section" id="telas">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="eyebrow">O app na prática</span>
+        <h2>Conheça as telas do aplicativo</h2>
+        <p>Telas reais do App do Síndico, em uma conta de demonstração. Arraste para o lado ou use as setas.</p>
+      </div>
+
+      <div class="screens fade-up" aria-roledescription="carrossel" aria-label="Telas do aplicativo">
+        <div class="screens-track" id="screensTrack" tabindex="0">
+
+          <figure class="screen-slide">
+            <div class="phone-frame"><img src="images/telas/home_page.webp" alt="Tela de acesso do App do Síndico" loading="lazy" width="540" height="1200"></div>
+            <h3>Acesso individual</h3>
+            <p>Cada pessoa entra com a própria chave de acesso e vê só o que lhe cabe.</p>
+          </figure>
+
+          <figure class="screen-slide">
+            <div class="phone-frame"><img src="images/telas/fin_menu.webp" alt="Menu do módulo Financeiro" loading="lazy" width="540" height="1200"></div>
+            <h3>Financeiro</h3>
+            <p>Contas a pagar, previsão orçamentária e orçado x gasto em um só lugar.</p>
+            <span class="screen-badge">Pro</span>
+          </figure>
+
+          <figure class="screen-slide">
+            <div class="phone-frame"><img src="images/telas/fin_contas_pagar.webp" alt="Tela de contas a pagar" loading="lazy" width="540" height="1200"></div>
+            <h3>Contas a Pagar</h3>
+            <p>Vencimentos por mês, filtros por situação e alerta das contas atrasadas.</p>
+            <span class="screen-badge">Pro</span>
+          </figure>
+
+          <figure class="screen-slide">
+            <div class="phone-frame"><img src="images/telas/fin_previsao.webp" alt="Tela de previsão orçamentária" loading="lazy" width="540" height="1200"></div>
+            <h3>Previsão Orçamentária</h3>
+            <p>Planejamento do ano, conta a conta, partindo do orçamento anterior com reajuste.</p>
+            <span class="screen-badge">Pro</span>
+          </figure>
+
+          <figure class="screen-slide">
+            <div class="phone-frame"><img src="images/telas/fin_orcado_gasto.webp" alt="Tela de orçado versus gasto" loading="lazy" width="540" height="1200"></div>
+            <h3>Orçado x Gasto</h3>
+            <p>Compare o que foi previsto com o que foi realizado, mês a mês e por conta contábil.</p>
+            <span class="screen-badge">Pro</span>
+          </figure>
+
+          <figure class="screen-slide">
+            <div class="phone-frame"><img src="images/telas/painel_cotacoes.webp" alt="Painel de cotações" loading="lazy" width="540" height="1200"></div>
+            <h3>Cotações com IA</h3>
+            <p>Propostas de fornecedores lado a lado, com análise por inteligência artificial e registro da escolha.</p>
+            <span class="screen-badge">Ultra</span>
+          </figure>
+
+          <figure class="screen-slide">
+            <div class="phone-frame"><img src="images/telas/concluir_obrigacao.webp" alt="Tela de conclusão de obrigação de manutenção" loading="lazy" width="540" height="1200"></div>
+            <h3>Manutenção preventiva</h3>
+            <p>Conclua obrigações anexando laudos em PDF ou foto como comprovante.</p>
+            <span class="screen-badge">Pro</span>
+          </figure>
+
+          <figure class="screen-slide">
+            <div class="phone-frame"><img src="images/telas/detalhe_equipamento.webp" alt="Ficha de equipamento" loading="lazy" width="540" height="1200"></div>
+            <h3>Equipamentos</h3>
+            <p>Ficha de cada equipamento com datas, garantia e abertura de manutenção corretiva.</p>
+            <span class="screen-badge">Pro</span>
+          </figure>
+
+          <figure class="screen-slide">
+            <div class="phone-frame"><img src="images/telas/modo_assembleia.webp" alt="Modo Assembleia" loading="lazy" width="540" height="1200"></div>
+            <h3>Modo Assembleia</h3>
+            <p>Relatório em PDF com a conformidade do condomínio e as obrigações concluídas no período.</p>
+          </figure>
+
+          <figure class="screen-slide">
+            <div class="phone-frame"><img src="images/telas/fornecedores.webp" alt="Cadastro de fornecedores" loading="lazy" width="540" height="1200"></div>
+            <h3>Fornecedores</h3>
+            <p>Contatos por categoria, com ligação e WhatsApp a um toque.</p>
+          </figure>
+
+          <figure class="screen-slide">
+            <div class="phone-frame"><img src="images/telas/protocolo_listar.webp" alt="Livro de protocolo" loading="lazy" width="540" height="1200"></div>
+            <h3>Livro de Protocolo</h3>
+            <p>Entrega e devolução de chaves, documentos e materiais, com registro de quem recebeu.</p>
+          </figure>
+
+          <figure class="screen-slide">
+            <div class="phone-frame"><img src="images/telas/visitantes_listagem_nao_chegou_p_m.webp" alt="Lista de visitantes aguardados" loading="lazy" width="540" height="1200"></div>
+            <h3>Visitantes</h3>
+            <p>Visitantes autorizados pelo morador chegam à portaria já identificados.</p>
+          </figure>
+
+          <figure class="screen-slide">
+            <div class="phone-frame"><img src="images/telas/mensagens_bot.webp" alt="Atendente virtual" loading="lazy" width="540" height="1200"></div>
+            <h3>Atendente Virtual</h3>
+            <p>Respostas rápidas pelo WhatsApp: segunda via de boleto, reservas, regimento e encomendas.</p>
+          </figure>
+
+          <figure class="screen-slide">
+            <div class="phone-frame"><img src="images/telas/moradores_trocar_unidade.webp" alt="Troca de unidade e condomínio" loading="lazy" width="540" height="1200"></div>
+            <h3>Vários condomínios</h3>
+            <p>Troque de condomínio ou de unidade em um toque, sem sair do app.</p>
+          </figure>
+
+          <figure class="screen-slide">
+            <div class="phone-frame"><img src="images/telas/medicoes_caixas.webp" alt="Gráfico de nível dos reservatórios" loading="lazy" width="540" height="1200"></div>
+            <h3>Reservatórios</h3>
+            <p>Acompanhe o nível das caixas d'água com histórico em gráfico.</p>
+          </figure>
+
+          <figure class="screen-slide">
+            <div class="phone-frame"><img src="images/telas/medicao_gas.webp" alt="Medição de gás" loading="lazy" width="540" height="1200"></div>
+            <h3>Medição de gás</h3>
+            <p>Leitura por unidade com foto do medidor tirada pela câmera do celular.</p>
+          </figure>
+
+          <figure class="screen-slide">
+            <div class="phone-frame"><img src="images/telas/painel_ferias.webp" alt="Painel de férias" loading="lazy" width="540" height="1200"></div>
+            <h3>Painel de Férias</h3>
+            <p>Férias da equipe sob controle, com alerta de sobreposição entre funcionários.</p>
+            <span class="screen-badge">Ultra</span>
+          </figure>
+
+          <figure class="screen-slide">
+            <div class="phone-frame"><img src="images/telas/importar_ferias.webp" alt="Importação de relatório de férias" loading="lazy" width="540" height="1200"></div>
+            <h3>Importar Férias</h3>
+            <p>Importe o PDF de programação de férias enviado pela contabilidade.</p>
+            <span class="screen-badge">Ultra</span>
+          </figure>
+
+          <figure class="screen-slide">
+            <div class="phone-frame"><img src="images/telas/batedores_cadastrar.webp" alt="Cadastro para registro de ponto" loading="lazy" width="540" height="1200"></div>
+            <h3>Ponto: cadastro</h3>
+            <p>Habilite os funcionários com cargo, documento e turno de trabalho.</p>
+            <span class="screen-badge">Pro</span>
+          </figure>
+
+          <figure class="screen-slide">
+            <div class="phone-frame"><img src="images/telas/batedores_registrar.webp" alt="Registro de ponto" loading="lazy" width="540" height="1200"></div>
+            <h3>Registro de Ponto</h3>
+            <p>O funcionário registra o ponto no celular, com comprovante por e-mail.</p>
+            <span class="screen-badge">Pro</span>
+          </figure>
+
+          <figure class="screen-slide">
+            <div class="phone-frame"><img src="images/telas/qr_code_visit_select.webp" alt="Geração de QR Code para visitante" loading="lazy" width="540" height="1200"></div>
+            <h3>QR Code de visitante</h3>
+            <p>Acesso com portas, quantidade de entradas e período de validade definidos pelo morador.</p>
+            <span class="screen-badge extra">Adicional</span>
+          </figure>
+
+          <figure class="screen-slide">
+            <div class="phone-frame"><img src="images/telas/tag_unid_menu.webp" alt="Cadastro de TAG de acesso" loading="lazy" width="540" height="1200"></div>
+            <h3>TAG de acesso</h3>
+            <p>O morador cadastra a própria TAG de acesso, com prazo de validade.</p>
+            <span class="screen-badge extra">Adicional</span>
+          </figure>
+
+        </div>
+
+        <div class="screens-nav">
+          <button class="screens-btn" id="screensPrev" aria-label="Tela anterior"><i class="fas fa-chevron-left"></i></button>
+          <div class="screens-dots" id="screensDots"></div>
+          <button class="screens-btn" id="screensNext" aria-label="Próxima tela"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANOS -->
+  <section class="section section-alt" id="planos">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="eyebrow">Planos</span>
+        <h2>Escolha o plano ideal</h2>
+        <p>Cada plano inclui tudo o que existe no anterior. Os planos atendem tanto o síndico morador, com um condomínio, quanto o síndico profissional, com vários condomínios.</p>
+      </div>
+
+      <div class="plans-grid">
+
+        <article class="plan-card fade-up delay-1">
+          <span class="plan-label">Plano</span>
+          <h3>Basic</h3>
+          <div class="plan-price">
+            <i class="fas fa-envelope-open-text"></i>
+            <div><strong>Preço sob consulta</strong><span>Solicite o valor por e-mail</span></div>
+          </div>
+          <p>Todos os módulos essenciais de gestão, portaria e comunicação com o morador.</p>
+          <ul class="plan-features">
+            <li><i class="fas fa-check"></i> Informativos, comunicados e documentos</li>
+            <li><i class="fas fa-check"></i> Reserva de áreas comuns</li>
+            <li><i class="fas fa-check"></i> Encomendas, visitantes e livro da portaria</li>
+            <li><i class="fas fa-check"></i> Ocorrências, chaves e rondas</li>
+            <li><i class="fas fa-check"></i> Vistorias, procedimentos e medições</li>
+            <li><i class="fas fa-check"></i> Protocolo, fornecedores e cadastros</li>
+            <li><i class="fas fa-check"></i> Modo Assembleia</li>
+          </ul>
+          <a href="mailto:contato@appdosindico.com.br" class="btn btn-outline-dark js-mail" data-plan="Basic">
+            <i class="fas fa-envelope"></i> Consultar o Basic
+          </a>
+        </article>
+
+        <article class="plan-card fade-up delay-2">
+          <span class="plan-label">Plano</span>
+          <h3>Pro</h3>
+          <div class="plan-price">
+            <i class="fas fa-envelope-open-text"></i>
+            <div><strong>Preço sob consulta</strong><span>Solicite o valor por e-mail</span></div>
+          </div>
+          <p>Para quem quer controlar as finanças e a manutenção do condomínio pelo app.</p>
+          <ul class="plan-features">
+            <li class="inherit"><i class="fas fa-plus"></i> Tudo do Basic, mais:</li>
+            <li><i class="fas fa-check"></i> Financeiro: contas a pagar, previsão orçamentária e orçado x gasto</li>
+            <li><i class="fas fa-check"></i> Manutenção preventiva e corretiva, com laudos</li>
+            <li><i class="fas fa-check"></i> Aniversariantes</li>
+            <li><i class="fas fa-check"></i> Registro de Ponto dos funcionários</li>
+          </ul>
+          <a href="mailto:contato@appdosindico.com.br" class="btn btn-outline-dark js-mail" data-plan="Pro">
+            <i class="fas fa-envelope"></i> Consultar o Pro
+          </a>
+        </article>
+
+        <article class="plan-card featured fade-up delay-3">
+          <span class="plan-ribbon">Mais completo</span>
+          <span class="plan-label">Plano</span>
+          <h3>Ultra</h3>
+          <div class="plan-price">
+            <i class="fas fa-envelope-open-text"></i>
+            <div><strong>Preço sob consulta</strong><span>Solicite o valor por e-mail</span></div>
+          </div>
+          <p>A gestão completa, com cotações analisadas por inteligência artificial.</p>
+          <ul class="plan-features">
+            <li class="inherit"><i class="fas fa-plus"></i> Tudo do Basic e do Pro, mais:</li>
+            <li><i class="fas fa-check"></i> Cotações com análise por IA</li>
+            <li><i class="fas fa-check"></i> Boletos e taxas: 2ª via no celular do morador</li>
+            <li><i class="fas fa-check"></i> Férias da equipe, com alerta de sobreposição</li>
+            <li><i class="fas fa-check"></i> Quadro de Tarefas</li>
+          </ul>
+          <a href="mailto:contato@appdosindico.com.br" class="btn btn-primary js-mail" data-plan="Ultra">
+            <i class="fas fa-envelope"></i> Consultar o Ultra
+          </a>
+        </article>
+
+      </div>
+
+      <p class="plans-note fade-up">
+        <i class="fas fa-circle-info"></i>
+        O valor acompanha o tamanho do condomínio (ou da sua carteira de condomínios, se você é síndico profissional).
+        Fale com a gente em <a href="mailto:contato@appdosindico.com.br" class="js-mail" data-plan="">contato@appdosindico.com.br</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- COMPARATIVO -->
+  <section class="section" id="comparativo">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="eyebrow">Comparativo</span>
+        <h2>O que cada plano inclui</h2>
+      </div>
+
+      <div class="compare-wrap fade-up">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th scope="col">Módulo</th>
+              <th scope="col">Basic</th>
+              <th scope="col">Pro</th>
+              <th scope="col" class="featured">Ultra</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Módulos essenciais*</strong><small>Gestão, portaria e comunicação com o morador</small></td>
+              <td><i class="fas fa-circle-check" aria-label="Incluído"></i></td>
+              <td><i class="fas fa-circle-check" aria-label="Incluído"></i></td>
+              <td><i class="fas fa-circle-check" aria-label="Incluído"></i></td>
+            </tr>
+            <tr>
+              <td><strong>Financeiro</strong></td>
+              <td><i class="fas fa-minus" aria-label="Não incluído"></i></td>
+              <td><i class="fas fa-circle-check" aria-label="Incluído"></i></td>
+              <td><i class="fas fa-circle-check" aria-label="Incluído"></i></td>
+            </tr>
+            <tr>
+              <td><strong>Manutenção</strong></td>
+              <td><i class="fas fa-minus" aria-label="Não incluído"></i></td>
+              <td><i class="fas fa-circle-check" aria-label="Incluído"></i></td>
+              <td><i class="fas fa-circle-check" aria-label="Incluído"></i></td>
+            </tr>
+            <tr>
+              <td><strong>Aniversariantes</strong></td>
+              <td><i class="fas fa-minus" aria-label="Não incluído"></i></td>
+              <td><i class="fas fa-circle-check" aria-label="Incluído"></i></td>
+              <td><i class="fas fa-circle-check" aria-label="Incluído"></i></td>
+            </tr>
+            <tr>
+              <td><strong>Registro de Ponto</strong></td>
+              <td><i class="fas fa-minus" aria-label="Não incluído"></i></td>
+              <td><i class="fas fa-circle-check" aria-label="Incluído"></i></td>
+              <td><i class="fas fa-circle-check" aria-label="Incluído"></i></td>
+            </tr>
+            <tr>
+              <td><strong>Boletos e Taxas</strong></td>
+              <td><i class="fas fa-minus" aria-label="Não incluído"></i></td>
+              <td><i class="fas fa-minus" aria-label="Não incluído"></i></td>
+              <td><i class="fas fa-circle-check" aria-label="Incluído"></i></td>
+            </tr>
+            <tr>
+              <td><strong>Cotações com IA</strong></td>
+              <td><i class="fas fa-minus" aria-label="Não incluído"></i></td>
+              <td><i class="fas fa-minus" aria-label="Não incluído"></i></td>
+              <td><i class="fas fa-circle-check" aria-label="Incluído"></i></td>
+            </tr>
+            <tr>
+              <td><strong>Férias</strong></td>
+              <td><i class="fas fa-minus" aria-label="Não incluído"></i></td>
+              <td><i class="fas fa-minus" aria-label="Não incluído"></i></td>
+              <td><i class="fas fa-circle-check" aria-label="Incluído"></i></td>
+            </tr>
+            <tr>
+              <td><strong>Quadro de Tarefas</strong></td>
+              <td><i class="fas fa-minus" aria-label="Não incluído"></i></td>
+              <td><i class="fas fa-minus" aria-label="Não incluído"></i></td>
+              <td><i class="fas fa-circle-check" aria-label="Incluído"></i></td>
+            </tr>
+            <tr>
+              <td><strong>Implantação e treinamento</strong></td>
+              <td><i class="fas fa-circle-check" aria-label="Incluído"></i></td>
+              <td><i class="fas fa-circle-check" aria-label="Incluído"></i></td>
+              <td><i class="fas fa-circle-check" aria-label="Incluído"></i></td>
+            </tr>
+            <tr>
+              <td><strong>Preço</strong></td>
+              <td>Sob consulta</td>
+              <td>Sob consulta</td>
+              <td>Sob consulta</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="compare-foot">
+        * Informativos, documentos, reservas, encomendas, visitantes e prestadores, livro da portaria, ocorrências, chaves,
+        rondas, vistorias, procedimentos, medições de água e gás, protocolo, fornecedores, classificados, achados e perdidos,
+        contatos úteis, cadastros e Modo Assembleia, entre outros.
+      </p>
+    </div>
+  </section>
+
+  <!-- SEGURANÇA DOS DADOS -->
+  <section class="pillars-section" id="seguranca">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="eyebrow">Segurança e tecnologia</span>
+        <h2>Os dados do seu condomínio bem guardados</h2>
+        <p>O App do Síndico roda sobre um banco de dados relacional de nível corporativo, em nuvem, com a mesma tecnologia usada por grandes plataformas no mundo todo.</p>
+      </div>
+
+      <div class="security-grid">
+        <div class="security-item fade-up delay-1">
+          <i class="fas fa-location-dot"></i>
+          <h4>Servidores no Brasil</h4>
+          <p>Os dados ficam hospedados em São Paulo: resposta rápida no app e informações dentro do país.</p>
+        </div>
+        <div class="security-item fade-up delay-2">
+          <i class="fas fa-clock-rotate-left"></i>
+          <h4>Backup diário e semanal</h4>
+          <p>Cópias de segurança automáticas de todo o banco de dados, todos os dias e toda semana. Se algo der errado, os dados podem ser restaurados.</p>
+        </div>
+        <div class="security-item fade-up delay-3">
+          <i class="fas fa-lock"></i>
+          <h4>Criptografia</h4>
+          <p>Comunicação criptografada entre o app e os servidores, e dados criptografados também quando armazenados.</p>
+        </div>
+        <div class="security-item fade-up delay-1">
+          <i class="fas fa-user-lock"></i>
+          <h4>Cada um vê só o que é seu</h4>
+          <p>Login individual e regras de acesso por perfil: síndico, administrador, porteiro e morador acessam apenas o que lhes cabe, e os dados de um condomínio ficam separados dos demais.</p>
+        </div>
+        <div class="security-item fade-up delay-2">
+          <i class="fas fa-bolt"></i>
+          <h4>Tudo em tempo real</h4>
+          <p>Encomenda registrada, reserva confirmada, comunicado publicado: a informação aparece na hora para quem precisa.</p>
+        </div>
+        <div class="security-item fade-up delay-3">
+          <i class="fas fa-scale-balanced"></i>
+          <h4>Disponível 24h e LGPD</h4>
+          <p>Sistema no ar 24 horas por dia, 7 dias por semana, com tratamento de dados pessoais em conformidade com a LGPD. Atualizações inclusas, sem custo adicional.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPLANTAÇÃO E ADICIONAIS -->
+  <section class="section section-alt" id="implantacao">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="eyebrow">Incluso em todos os planos</span>
+        <h2>A gente deixa tudo pronto para você</h2>
+        <p>A parametrização do condomínio e o treinamento da equipe estão incluídos em qualquer plano.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step fade-up delay-1">
+          <span class="step-num">1</span>
+          <h4>Configuração</h4>
+          <p>Recebemos os dados do condomínio (unidades, moradores, áreas comuns e equipe) e deixamos o app pronto para uso.</p>
+        </div>
+        <div class="step fade-up delay-2">
+          <span class="step-num">2</span>
+          <h4>Treinamento</h4>
+          <p>Um treinamento presencial para o síndico, o administrador e os porteiros, no local indicado pelo condomínio.</p>
+        </div>
+        <div class="step fade-up delay-3">
+          <span class="step-num">3</span>
+          <h4>Ativação</h4>
+          <p>Liberação dos acessos e convite aos moradores de todas as unidades para baixarem o app.</p>
+        </div>
+        <div class="step fade-up delay-4">
+          <span class="step-num">4</span>
+          <h4>Suporte</h4>
+          <p>Atendimento por WhatsApp e e-mail para tirar dúvidas e resolver problemas no dia a dia.</p>
+        </div>
+      </div>
+
+      <div class="addons">
+        <div class="addon fade-up delay-1">
+          <div class="module-icon"><i class="fas fa-qrcode"></i></div>
+          <div>
+            <span class="addon-tag">Módulo adicional · sob consulta</span>
+            <h4>Controle de acesso com TAG e QR Code</h4>
+            <p>Liberação de moradores e visitantes por TAG ou QR Code, integrada ao app. Orçado conforme a estrutura do condomínio.</p>
+          </div>
+        </div>
+        <div class="addon fade-up delay-2">
+          <div class="module-icon"><i class="fas fa-box-archive"></i></div>
+          <div>
+            <span class="addon-tag">Módulo adicional · sob consulta</span>
+            <h4>Armários de encomendas</h4>
+            <p>Integração com armários inteligentes: o morador retira a encomenda com QR Code. Orçado conforme a estrutura do condomínio.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-band" id="contratar">
+    <div class="container">
+      <div class="fade-up">
+        <h2>Peça o valor do seu plano</h2>
+        <p>Mande um e-mail contando um pouco sobre o seu condomínio. Respondemos com uma proposta sob medida.</p>
+        <div class="hire-steps">
+          <span class="hire-step"><b>1</b> Envie o e-mail</span>
+          <span class="hire-step"><b>2</b> Receba a proposta</span>
+          <span class="hire-step"><b>3</b> Implantação e treinamento</span>
+        </div>
+        <a href="mailto:contato@appdosindico.com.br" class="btn btn-dark js-mail" data-plan="" style="font-size: 1rem; padding: 1rem 2.25rem;">
+          <i class="fas fa-envelope"></i> Solicitar orçamento por e-mail
+        </a>
+        <a href="mailto:contato@appdosindico.com.br" class="cta-email js-mail" data-plan="">contato@appdosindico.com.br</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">
+            <img src="images/icone_circular.png" alt="App do Síndico" class="nav-logo-img">
+            <div class="nav-logo-text">
+              <span class="nav-logo-name">App do Síndico</span>
+              <span class="nav-logo-sub">Gestão Condominial</span>
+            </div>
+          </a>
+          <p>Ferramentas para o Síndico na palma da mão. Financeiro, manutenção, cotações com análise por IA, reservas, comunicados e o dia a dia do condomínio em um só aplicativo.</p>
+        </div>
+        <div class="footer-col">
+          <h4>O Aplicativo</h4>
+          <ul class="footer-links">
+            <li><a href="index.html#recursos">Recursos</a></li>
+            <li><a href="index.html#modulos">Módulos</a></li>
+            <li><a href="planos.html">Planos</a></li>
+            <li><a href="index.html#perfis">Para quem é</a></li>
+            <li><a href="qrcode.html">Baixar o App</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="politica.html">Política de Privacidade</a></li>
+            <li><a href="exclusaodados.html">Exclusão de Conta e Dados</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Suporte ao Cliente</h4>
+          <div class="footer-contact-item">
+            <i class="fas fa-envelope"></i>
+            <a href="mailto:contato@appdosindico.com.br">contato@appdosindico.com.br</a>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fab fa-whatsapp"></i>
+            <a href="https://wa.me/5571992071319" target="_blank" rel="noopener noreferrer">Fale pelo WhatsApp</a>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-globe"></i>
+            <a href="https://www.appdosindico.com.br">www.appdosindico.com.br</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 App do Síndico. Todos os direitos reservados.</p>
+        <p>A gestão do condomínio na palma da mão</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/5571992071319" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Conversar pelo WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+    <span>Fale pelo WhatsApp</span>
+  </a>
+
+  <script src="js/main.js"></script>
+  <script>
+    // E-mail de orçamento já preenchido com o plano escolhido
+    (function () {
+      var email = 'contato@appdosindico.com.br';
+      document.querySelectorAll('.js-mail').forEach(function (a) {
+        var plan = a.getAttribute('data-plan');
+        var subject = plan
+          ? 'Orçamento App do Síndico - Plano ' + plan
+          : 'Orçamento App do Síndico';
+        var body = 'Olá! Gostaria de receber o valor ' +
+          (plan ? 'do plano ' + plan : 'dos planos') + ' do App do Síndico.\n\n' +
+          'Nome:\n' +
+          'Telefone / WhatsApp:\n' +
+          'Sou: ( ) síndico morador  ( ) síndico profissional  ( ) administradora\n' +
+          'Condomínio(s):\n' +
+          'Cidade/UF:\n' +
+          'Número de unidades (ou de condomínios, se síndico profissional):\n';
+        a.href = 'mailto:' + email +
+          '?subject=' + encodeURIComponent(subject) +
+          '&body=' + encodeURIComponent(body);
+      });
+    })();
+
+    // Carrossel de telas
+    (function () {
+      var track = document.getElementById('screensTrack');
+      var dotsWrap = document.getElementById('screensDots');
+      if (!track || !dotsWrap) return;
+
+      var slides = track.querySelectorAll('.screen-slide');
+      var dots = [];
+      var current = 0;
+      var timer = null;
+
+      function goTo(i) {
+        current = (i + slides.length) % slides.length;
+        var s = slides[current];
+        track.scrollTo({ left: s.offsetLeft - (track.clientWidth - s.offsetWidth) / 2 });
+      }
+
+      slides.forEach(function (s, i) {
+        var d = document.createElement('button');
+        d.className = 'screens-dot';
+        d.setAttribute('aria-label', 'Ir para a tela ' + (i + 1));
+        d.addEventListener('click', function () { stop(); goTo(i); });
+        dotsWrap.appendChild(d);
+        dots.push(d);
+      });
+
+      function markActive() {
+        var center = track.scrollLeft + track.clientWidth / 2;
+        var best = 0, bestDist = Infinity;
+        slides.forEach(function (s, i) {
+          var dist = Math.abs(s.offsetLeft + s.offsetWidth / 2 - center);
+          if (dist < bestDist) { bestDist = dist; best = i; }
+        });
+        current = best;
+        dots.forEach(function (d, i) { d.classList.toggle('active', i === best); });
+      }
+
+      var raf = null;
+      track.addEventListener('scroll', function () {
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(markActive);
+      });
+
+      document.getElementById('screensPrev').addEventListener('click', function () { stop(); goTo(current - 1); });
+      document.getElementById('screensNext').addEventListener('click', function () { stop(); goTo(current + 1); });
+
+      function start() {
+        if (timer || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        timer = setInterval(function () { goTo(current + 1); }, 3500);
+      }
+      function stop() { clearInterval(timer); timer = null; }
+
+      track.addEventListener('mouseenter', stop);
+      track.addEventListener('mouseleave', start);
+      track.addEventListener('touchstart', stop, { passive: true });
+      track.addEventListener('focusin', stop);
+      track.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+      });
+
+      markActive();
+      start();
+    })();
+  </script>
+</body>
+</html>
